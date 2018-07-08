@@ -17,6 +17,14 @@ class Game:
         self.players = players
         self.deck = deck
 
+    def do_evolution(self, player, creature, card):
+        if (creature = 999):
+            self.players[player].add_creature(card)
+        else:
+            for c in self.players[player].creatures:
+                if (c.id == creature):
+                    c.add_ability(card)
+
     def json(self):
         json = {}
         json["game"] = {}
