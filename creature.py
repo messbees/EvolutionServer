@@ -14,6 +14,9 @@ class Creature:
         serf.owner = owner
         print("{} has spawned a new creature (ID: {})".format(self.owner, self.id))
 
+    def add_ability(self, card):
+        self.abilities.append(card)
+
     def json(self):
         json = {}
         json["id"] = self.id
