@@ -1,8 +1,7 @@
 class Ability:
 
-    def __init__(self, name, description, type, action, owner):
+    def __init__(self, name, type, action, owner):
         self.name = name
-        self.description = description
         self.type = type
         self.action = action
 
