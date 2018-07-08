@@ -7,5 +7,5 @@ class HttpProcessor(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write("hello !")
 
-serv = HTTPServer(("localhost",9000),HttpProcessor)
+serv = HTTPServer(("localhost",8888),HttpProcessor)
 serv.serve_forever()
