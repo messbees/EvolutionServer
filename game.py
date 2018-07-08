@@ -5,7 +5,8 @@ import ability
 import random
 
 class Game:
-    def __init__(self, players):
+    def __init__(self, players, name, deck):
+        self.name = name
         self.id = random.randrange(1000, 9999)
-        self.deck = Deck()
+        self.deck = deck
         self.players = players
