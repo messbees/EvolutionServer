@@ -25,3 +25,4 @@ class Creature:
         for ability in self.abilities:
             json["abilities"].append(ability.id)
         json["card"] = card.id
+        return json
