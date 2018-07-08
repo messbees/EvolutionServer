@@ -10,6 +10,10 @@ class Player:
         for index in range(0, 5):
             self.cards.append(deck.get_card())
 
+    def add_creature(self, card):
+        creature = Creature(self, card)
+        self.creatures.append(creature)
+
     def json(self):
         json = {}
         json["name"] = self.name
