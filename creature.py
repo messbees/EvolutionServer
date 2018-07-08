@@ -23,5 +23,5 @@ class Creature:
         json["owner"] = self.owner
         json["abilities"] = {}
         for ability in self.abilities:
-            json["abilities"] = ability.id
+            json["abilities"].append(ability.id)
         json["card"] = card.id
