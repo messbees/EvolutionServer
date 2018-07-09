@@ -55,12 +55,10 @@ class RequestHandler(BaseHTTPRequestHandler):
             game_name = data["room_new"]["game"]
             player_name = data["room_new"]["player"]
             if (os.path.isfile("rooms/{}.json".format(game_name))):
-                self._set_headers()
                 self.send_response(409)
                 self.end_headers()
             else:
                 room = Room(game_name, player_name)
-                self._set_headers()
                 self.send_response(200)
                 self.end_headers()
 
@@ -114,7 +112,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             card = data["evolution"]["card"]
             game = game_server.load_game(game_id)
             if (game == None):
-                self._set_headers()
                 self.send_response(404)
                 self.end_headers()
                 return
@@ -123,12 +120,10 @@ class RequestHandler(BaseHTTPRequestHandler):
                 if (p.name == player_name):
                     player = p
             if (game_server.do_evolution(game, player, creature, card)):
-                self._set_headers()
                 self.send_response(200)
                 self.end_headers()
                 return
             else:
-                self._set_headers()
                 self.send_response(403)
                 self.end_headers()
                 return
