@@ -94,12 +94,28 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         # calls after beginning the game in room by room admin
         if (action == "ROOM_START"):
-            name = data["new_game"]["name"]
+            name = data["room_start"]["game"]
+            admin = data["room_start"]["player"]
+            if not (os.path.isfile("rooms/{}.json".format(name))):
+                self.send_response(404)
+                self.end_headers()
+                return
+            f = open('rooms/{}.json'.format(name))
+            room = json.loads(f.read())
             deck = Deck()
             players = []
-            for player in data["new_game"]["players"]:
+            for player in room["players"]:
                 players.append(Player(player["name"], deck))
             game = game_server.new_game(name, players, deck)
+            if (os.path.isfile("games/{}.json".format(game.id))):
+                self.send_response(500)
+                self.end_headers()
+            else:
+                game.save()
+                self.send_response(200)
+                self.end_headers()
+
+
             f = open('games/{}.json'.format(game.id))
             self.wfile.write(f.read())
 

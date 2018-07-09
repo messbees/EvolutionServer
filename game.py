@@ -53,7 +53,10 @@ class Game:
         self.stage = "survival"
         self.turn = first.name
 
-
+    def save(self):
+        game = json()
+        with open('games/{}.json'.format(self.id), 'w') as outfile:
+            json.dump(game, outfile)
 
     def json(self):
         json = {}
