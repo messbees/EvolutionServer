@@ -6,6 +6,8 @@ import logging
 import argparse_helper
 import os
 import sys
+import exceptions
+
 nick = "messbees"
 
 def room_new(args):
