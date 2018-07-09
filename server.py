@@ -69,7 +69,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             if (os.path.isfile("rooms/{}.json".format(game_name))):
                 f = open('rooms/{}.json'.format(game_name))
                 room = json.loads(f.read())
-                print(room)
                 name = room["name"]
                 players = []
                 for player in room["players"]:
