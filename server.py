@@ -6,6 +6,8 @@ from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
 import exceptions
 
+game_server = Server()
+
 class RequestHandler(BaseHTTPRequestHandler):
     def set_game_server(self, server):
         self.game_server = server
@@ -74,7 +76,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             players = []
             for player in data["new_game"]["players"]:
                 players.append(Player(player["name"], deck))
-            game = self.game_server.new_game(name, players, deck)
+            game = game_server.new_game(name, players, deck)
             f = open('games/{}.json'.format(game.id))
             self.wfile.write(f.read())
 
@@ -82,7 +84,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if (action == "CONNECT"):
             game_name = data["connect"]["game"]
             player_name = data["connect"]["player"]
-            for game in self.game_server.games:
+            for game in game_server.games:
                 for player in game.players:
                     if (player_name == player.name):
                         f = open('games/{}.json'.format(game.id))
@@ -97,7 +99,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             player_name = data["evolution"]["player"]
             creature = data["evolution"]["creature"]
             card = data["evolution"]["card"]
-            game = self.game_server.load_game(game_id)
+            game = game_server.load_game(game_id)
             if (game == None):
                 self._set_headers()
                 self.send_response(404)
@@ -107,7 +109,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             for p in game.players:
                 if (p.name == player_name):
                     player = p
-            if (self.game_server.do_evolution(game, player, creature, card)):
+            if (game_server.do_evolution(game, player, creature, card)):
                 self._set_headers()
                 self.send_response(200)
                 self.end_headers()
@@ -157,10 +159,7 @@ if __name__ == "__main__":
     parser.add_argument('ip', help='HTTP Server IP')
     args = parser.parse_args()
 
-    print 'Evolution Server Running...'
-    server = Server()
 
     print('Listening on {}:{}'.format(args.ip, args.port))
     HTTPserver = HTTPServer((args.ip, args.port), RequestHandler)
-    HTTPserver.set_game_server(server)
     HTTPserver.serve_forever()
