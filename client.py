@@ -94,5 +94,20 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))
 
+def main_wrapper():
+    # pylint: disable=bare-except
+    try:
+        main()
+    except (EvolutionClientException) as err:
+        print("Error: {}".format(err), file=sys.stderr)
+        sys.exit(1)
+    except KeyboardInterrupt:
+        pass
+    except SystemExit as e:
+        raise e
+    except:
+        traceback.print_exc(file=sys.stderr)
+        sys.exit(1)
+
 if __name__ == "__main__":
-    main()
+    main_wrapper()
