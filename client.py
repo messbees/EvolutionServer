@@ -25,7 +25,6 @@ def room_new(args):
         json["room_connect"] = {}
         json["room_connect"]["game"] = name
         json["room_connect"]["player"] = admin
-        print("Sending your {} request...".format(json["action"]))
         response = requests.post('http://159.100.247.47:8888', json=json).status_code
         if (response == 200):
             print("You have joined this room.")
