@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
-import game, room, player, creature, ability
+import game
+from room import Room
+import player, creature, ability
 import os
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
