@@ -20,6 +20,8 @@ def room_new(args):
     print("Sending your {} request...".format(json["action"]))
     response = requests.post('http://159.100.247.47:8888', json=json)
     print(response)
+    if (response == 200):
+        print("YES!!!")
 
 def room_connect(args):
     name = args.name
