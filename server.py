@@ -50,6 +50,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         data = json.loads(self.data_string)
         action = data["action"]
 
+        self.send_header('Content-type', 'application/json')
         # calls after creating new room
         if (action == "ROOM_NEW"):
             game_name = data["room_new"]["game"]
