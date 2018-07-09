@@ -102,6 +102,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                 return
             f = open('rooms/{}.json'.format(name))
             room = json.loads(f.read())
+            if not (room["admin"] == admin):
+                self.send_response(403)
+                self.end_headers()
             deck = Deck()
             players = []
             for player in room["players"]:
