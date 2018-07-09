@@ -6,6 +6,35 @@ from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
 import exceptions
 
+class Server:
+    def __init__(self):
+        # why can't i leave it empty?
+        print("Server initiated.")
+
+    def load_game(self, id):
+        if (os.path.isfile("games/{}.json".format(id))):
+            f = open('games/{}.json'.format(id))
+            game = json.loads(f.read())
+        else:
+            return None
+
+    def new_game(self, name, players, deck):
+        game = Game(name, players, deck)
+        save_game(game)
+        return game
+
+    def do_evolution(self, game, player, creature, card):
+        if (game.stage == "evolution" and game.turn == player_name):
+            if (game.do_evolution(player, creature, card)):
+                return true
+        return false
+
+    def save_game(self, game):
+        game_json = game.json()
+        with open('games/{}.json'.format(game.id), 'w') as outfile:
+            json.dump(game_json, outfile)
+            print("Game {} is saved.".format(game.name))
+
 game_server = Server()
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -123,35 +152,6 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     do_PUT = do_POST
     do_DELETE = do_GET
-
-class Server:
-    def __init__(self):
-        # why can't i leave it empty?
-        print("Server initiated.")
-
-    def load_game(self, id):
-        if (os.path.isfile("games/{}.json".format(id))):
-            f = open('games/{}.json'.format(id))
-            game = json.loads(f.read())
-        else:
-            return None
-
-    def new_game(self, name, players, deck):
-        game = Game(name, players, deck)
-        save_game(game)
-        return game
-
-    def do_evolution(self, game, player, creature, card):
-        if (game.stage == "evolution" and game.turn == player_name):
-            if (game.do_evolution(player, creature, card)):
-                return true
-        return false
-
-    def save_game(self, game):
-        game_json = game.json()
-        with open('games/{}.json'.format(game.id), 'w') as outfile:
-            json.dump(game_json, outfile)
-            print("Game {} is saved.".format(game.name))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='HTTP Server')
