@@ -8,7 +8,7 @@ import os
 import sys
 nick = "messbees"
 
-def new_room(args):
+def room_new(args):
     name = args.name
     admin = nick
     json = {}
@@ -21,7 +21,7 @@ def new_room(args):
     response = requests.post('http://159.100.247.47:8888', json=json)
     print(response)
 
-def connect_to_room(args):
+def room_connect(args):
     name = args.name
     player = args.player
     json = {}
