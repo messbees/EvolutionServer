@@ -12,10 +12,10 @@ class Room:
         for player in self.players:
             if (player == name):
                 print("Error! Player with same name is already in this room!")
-                return false
+                return False
         self.players.append(name)
         self.save()
-        return true
+        return True
 
     def save(self):
         room = {}
