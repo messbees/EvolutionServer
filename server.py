@@ -3,7 +3,8 @@
 import argparse
 import game
 from room import Room
-import player, creature, ability, deck
+from deck import Deck
+import player, creature, ability
 import os
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
