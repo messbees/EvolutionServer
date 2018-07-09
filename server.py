@@ -61,7 +61,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
 
-        print "POST request!"
+        print("POST request!")
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
 
 
