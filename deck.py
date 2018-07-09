@@ -7,7 +7,7 @@ class Deck:
         print("Created deck with {} cards.".format(self.cards.count))
 
     def get_card(self):
-        card = random.choise(self.cards)
+        card = random.choice(self.cards)
         self.cards.pop(card)
         print("Deck now have {} cards left.".format(self.cards.count))
         return card
