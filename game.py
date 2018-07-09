@@ -24,7 +24,7 @@ class Game:
             return false
 
         for p in self.players:
-            if (p = player):
+            if (p == player):
                 player = p
         else:
             return false
