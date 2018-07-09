@@ -55,7 +55,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if (action == "ROOM_CONNECT"):
             game_name = data["room_connect"]["game"]
             player_name = data["room_connect"]["player"]
-            if (os.path.isfile("rooms/{}.json".format(game_name))_:
+            if (os.path.isfile("rooms/{}.json".format(game_name))):
                 f = open('rooms/{}.json'.format(game_name))
                 room = json.loads(f.read())
                 if (room.admin == player_name):
