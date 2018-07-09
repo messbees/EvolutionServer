@@ -24,7 +24,7 @@ class Room:
         room["name"] = self.name
         index = 0
         for player in self.players:
-            room["players"][player] = index
+            room["players"][index] = player
             index = index + 1
         room["admin"] = self.admin
         with open('rooms/{}.json'.format(self.name), 'w') as outfile:
