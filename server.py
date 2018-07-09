@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
 import argparse
-import game
+import game, room, player, creature, ability
 import os
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
 import exceptions
-
 class Server:
     def __init__(self):
         # why can't i leave it empty?
