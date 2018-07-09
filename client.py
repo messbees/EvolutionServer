@@ -5,7 +5,7 @@ import requests
 import logging
 import argparse_helper
 import os
-
+import sys
 nick = "messbees"
 
 def new_room(args):
