@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+
+import argparse
 import requests
 
 nick = "messbees"
@@ -25,8 +28,19 @@ def connect_to_room(name, player):
     print(response)
 
 def main():
-    game  = "game22"
-    connect_to_room(game, "linegel")
+    if args.action = "ROOM_NEW":
+        new_room(args.game, nick)
+        room_connect(args.game, nick)
+
+    if args.action = "ROOM_СONNECT":
+        room_connect(args.game, nick)
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Evolution Server Request Client')
+    parser.add_argument('action',  help='Action')
+    parser.add_argument('game', help='Game ID or Room name')
+    parser.add_argument('creature', type=int, help='Creature ID')
+    parser.add_argument('сard', type=int, help='Card id')
+    args = parser.parse_args()
+
     main()
