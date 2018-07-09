@@ -4,6 +4,7 @@ import argparse
 import requests
 import logging
 import argparse_helper
+import os
 
 nick = "messbees"
 
