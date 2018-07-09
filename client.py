@@ -18,7 +18,7 @@ def room_new(args):
     json["room_new"]["player"] = admin
     print(json)
     print("Sending your {} request...".format(json["action"]))
-    response = requests.post('http://159.100.247.47:8888', json=json)
+    response = requests.post('http://159.100.247.47:8888', json=json).json
     print(response["response"])
     if (response == 200):
         print("YES!!!")
