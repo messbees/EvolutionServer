@@ -69,16 +69,28 @@ class RequestHandler(BaseHTTPRequestHandler):
             if (os.path.isfile("rooms/{}.json".format(game_name))):
                 f = open('rooms/{}.json'.format(game_name))
                 room = json.loads(f.read())
-                if (room.admin == player_name):
-                    room["is_admin" == "true"]
-                else:
-                    room["is_admin" == "false"]
-                with open('rooms/{}.json'.format(game_name), 'w') as outfile:
-                    json.dump(room, outfile)
+                name = room["name"]
+                players = []
+                for player in room["players"]:
+                    players.append(player)
+                admin = room["admin"]
+                updated = Room(name, admin)
+                for player in players:
+                    if not (updated.connect(player)):
+                        self.send_response(409)
+                        self.end_headers()
+                        return
+                if not (updated.connect(player_name)):
+                    self.send_response(409)
+                    self.end_headers()
+                    return
+                updated.save()
                 self.wfile.write(room)
+                self.send_response(200)
+                self.end_headers()
             else:
-                f = open('rooms/null.json')
-                self.wfile.write(f.read())
+                self.send_response(404)
+                self.end_headers()
 
         # calls after beginning the game in room by room admin
         if (action == "ROOM_START"):
