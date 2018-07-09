@@ -1,5 +1,7 @@
 import requests
 
+nick = "messbees"
+
 def new_room(name, admin):
     json = {}
     json["action"] = "ROOM_NEW"
@@ -8,7 +10,8 @@ def new_room(name, admin):
     json["room_new"]["player"] = admin
     print(json)
     print("Sending your {} request...".format(json["action"]))
-    print(requests.post('http://159.100.247.47:8888', json=json))
+    response = requests.post('http://159.100.247.47:8888', json=json)
+    print(response)
 
 def connect_to_room(name, player):
     json = {}
@@ -18,10 +21,14 @@ def connect_to_room(name, player):
     json["room_connect"]["player"] = player
     print(json)
     print("Sending your {} request...".format(json["action"]))
-    print(requests.post('http://159.100.247.47:8888', json=json))
+    response = requests.post('http://159.100.247.47:8888', json=json)
+    print(response)
 
 def main():
-    connect_to_room("game22", "linegel")
+    game  = "game22"
+    new_room(game, nick)
+    connect_to_room(game, nick)
+    connect_to_room(game, "linegel")
 
 if __name__ == "__main__":
     main()
