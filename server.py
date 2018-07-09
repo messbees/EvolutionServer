@@ -160,7 +160,7 @@ if __name__ == "__main__":
     print 'Evolution Server Running...'
     server = Server()
 
-    print('Listening on {}:{}}'.format(args.ip, args.port))
+    print('Listening on {}:{}'.format(args.ip, args.port))
     HTTPserver = HTTPServer((args.ip, args.port), RequestHandler)
     HTTPserver.set_game_server(server)
     HTTPserver.serve_forever()
