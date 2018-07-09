@@ -37,14 +37,14 @@ def connect_to_room(args):
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:
 		args = sys.argv[1:]
-	parser = parser_helper.create_parser(prog_name)
+	parser = argparse_helper.create_parser(prog_name)
 	args = parser.parse_args(args)
 
 	if args.verbose is None:
 		verbose_level = 0
 	else:
 		verbose_level = args.verbose
-	parser_helper.setup_loggers(verbose_level=verbose_level)
+	argparse_helper.setup_loggers(verbose_level=verbose_level)
 
 	if not args.command:
 		parser.print_help()
