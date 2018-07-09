@@ -1,11 +1,9 @@
-#!/usr/bin/env pythonfrom BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+#!/usr/bin/env python
 
 import argparse
-import cgi
 import game
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-from optparse import OptionParser
-import simplejson as json
+import json
 import exceptions
 
 class RequestHandler(BaseHTTPRequestHandler):
