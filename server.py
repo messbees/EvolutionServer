@@ -2,6 +2,7 @@
 
 import argparse
 import game
+import os
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
 import exceptions
