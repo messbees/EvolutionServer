@@ -1,7 +1,33 @@
 import argparse
 import getpass
 import logging
+from colorlog import ColoredFormatter
 
+def create_console_handler(verbose_level):
+    clog = logging.StreamHandler()
+    formatter = ColoredFormatter(
+        "%(log_color)s[%(asctime)s %(levelname)-8s%(module)s]%(reset)s "
+        "%(white)s%(message)s",
+        datefmt="%H:%M:%S",
+        reset=True,
+        log_colors={
+            'DEBUG': 'cyan',
+            'INFO': 'green',
+            'WARNING': 'yellow',
+            'ERROR': 'red',
+            'CRITICAL': 'red',
+        })
+
+    clog.setFormatter(formatter)
+
+    if verbose_level == 0:
+        clog.setLevel(logging.WARN)
+    elif verbose_level == 1:
+        clog.setLevel(logging.INFO)
+    else:
+        clog.setLevel(logging.DEBUG)
+
+    return clog
 def setup_loggers(verbose_level):
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
