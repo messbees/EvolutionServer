@@ -86,6 +86,8 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 		room_new(args)
 	elif args.command == 'room_connect':
 		room_connect(args)
+	elif args.command == 'room_start':
+		room_start(args)
 
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))
