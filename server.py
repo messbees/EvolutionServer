@@ -73,6 +73,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 players = []
                 for player in room["players"]:
                     players.append(player)
+                print("----players: {}".format(players))
                 admin = room["admin"]
                 updated = Room(name, admin)
                 for player in players:
