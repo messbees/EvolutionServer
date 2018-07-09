@@ -52,7 +52,7 @@ def room_connect(args):
 
 def room_start(args):
     name = args.name
-    player = args.player
+    player = nick
     json = {}
     json["action"] = "ROOM_CONNECT"
     json["room_start"] = {}
@@ -62,6 +62,8 @@ def room_start(args):
     response = requests.post('http://159.100.247.47:8888', json=json).status_code
     if (response == 200):
         print("Game begins!")
+    elif (response == 403):
+        print("Only game creator is allowed to begin this game!")
     elif (response == 404):
         print("There is no room with name {}".format(name))
     elif (response == 500):
