@@ -5,7 +5,6 @@ class Room:
         self.name = name
         self.players = []
         self.admin = admin
-        self.players.append(admin)
         self.save()
         print('New room named {} by {}'.format(name, admin))
 

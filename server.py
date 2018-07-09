@@ -75,7 +75,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 for player in room["players"]:
                     players.append(player)
                 admin = room["admin"]
-                print("---players: {}".format(players))
                 updated = Room(name, admin)
                 for player in players:
                     if not (updated.connect(player)):
