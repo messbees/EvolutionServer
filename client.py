@@ -2,10 +2,14 @@
 
 import argparse
 import requests
+import logging
+import argparse_helper
 
 nick = "messbees"
 
-def new_room(name, admin):
+def new_room(args):
+    name = args.name
+    admin = nick
     json = {}
     json["action"] = "ROOM_NEW"
     json["room_new"] = {}
@@ -16,7 +20,9 @@ def new_room(name, admin):
     response = requests.post('http://159.100.247.47:8888', json=json)
     print(response)
 
-def connect_to_room(name, player):
+def connect_to_room(args):
+    name = args.name
+    player = args.player
     json = {}
     json["action"] = "ROOM_CONNECT"
     json["room_connect"] = {}
@@ -27,13 +33,28 @@ def connect_to_room(name, player):
     response = requests.post('http://159.100.247.47:8888', json=json)
     print(response)
 
-def main():
-    if (args.action == "ROOM_NEW"):
-        new_room(args.game, nick)
-        room_connect(args.game, nick)
+def main(prog_name=os.path.basename(sys.argv[0]), args=None):
+	if args is None:
+		args = sys.argv[1:]
+	parser = create_parser(prog_name)
+	args = parser.parse_args(args)
 
-    if (args.action == "ROOM_СONNECT"):
-        room_connect(args.game, nick)
+	if args.verbose is None:
+		verbose_level = 0
+	else:
+		verbose_level = args.verbose
+	setup_loggers(verbose_level=verbose_level)
+
+	if not args.command:
+		parser.print_help()
+		sys.exit(1)
+	if args.command == 'room_new':
+		room_new(args)
+	elif args.command == 'room_connect':
+		room_connect(args)
+
+	else:
+		raise EvolutionClientException("invalid command: {}".format(args.command))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Evolution Server Request Client')
