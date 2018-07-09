@@ -41,7 +41,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if (action == "ROOM_NEW"):
             game_name = data["room_new"]["game"]
             player_name = data["room_new"]["player"]
-            if (os.path.isfile("rooms/{}.json".format(game_name)):
+            if (os.path.isfile("rooms/{}.json".format(game_name))):
                 self._set_headers()
                 self.send_response(409)
                 self.end_headers()
@@ -55,7 +55,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if (action == "ROOM_CONNECT"):
             game_name = data["room_connect"]["game"]
             player_name = data["room_connect"]["player"]
-            if (os.path.isfile("rooms/{}.json".format(game_name)):
+            if (os.path.isfile("rooms/{}.json".format(game_name))_:
                 f = open('rooms/{}.json'.format(game_name))
                 room = json.loads(f.read())
                 if (room.admin == player_name):
