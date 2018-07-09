@@ -6,6 +6,7 @@ class Player:
         self.name = name
         self.creatures = []
         self.cards = []
+        self.finished = "true"
         self.discard = 0
         for index in range(0, 5):
             self.cards.append(deck.get_card())
@@ -18,6 +19,7 @@ class Player:
         json = {}
         json["name"] = self.name
         json["creatures"] = {}
+        json["finished"] = self.finished
         for creature in self.creatures:
             json["creatures"][creature.id] = creature.json()
         json["cards"] = {}
