@@ -3,7 +3,7 @@ class Room:
         self.name = name
         self.players = []
         self.admin = admin
-        players.append(admin)
+        self.players.append(admin)
         save()
 
     def connect(self, name):
