@@ -126,7 +126,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 class Server:
     def __init__(self):
-
+        # why can't i leave it empty?
+        print("Server initiated.")
+        
     def load_game(self, id):
         if (os.path.isfile("games/{}.json".format(id)):
             f = open('games/{}.json'.format(id))
