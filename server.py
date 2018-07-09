@@ -110,7 +110,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             deck = Deck()
             players = []
             for player in room["players"]:
-                players.append(Player(player, deck
+                players.append(Player(player, deck))
             game = game_server.new_game(name, players, deck)
             if (os.path.isfile("games/{}.json".format(game.id))):
                 self.send_response(500)
