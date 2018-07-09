@@ -9,7 +9,7 @@ class Room:
         self.save()
 
     def connect(self, name):
-        print(Connecting {} to room {}.format(name, self.name))
+        print("Connecting {} to room {}".format(name, self.name))
         for player in self.players:
             if (player == name):
                 print("Error! Player with same name is already in this room!")
