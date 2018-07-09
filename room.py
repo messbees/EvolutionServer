@@ -20,7 +20,7 @@ class Room:
         room["players"] = {}
         players = room["players"]
         for player in self.players:
-            players.append(player)
+            players.update(player)
         room["admin"] = self.admin
         with open('rooms/{}.json'.format(self.name), 'w') as outfile:
             json.dump(room, outfile)
