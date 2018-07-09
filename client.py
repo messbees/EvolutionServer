@@ -58,11 +58,4 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 		raise EvolutionClientException("invalid command: {}".format(args.command))
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Evolution Server Request Client')
-    parser.add_argument('action',  help='Action')
-    parser.add_argument('game', help='Game ID or Room name')
-    parser.add_argument('creature', type=int, help='Creature ID')
-    parser.add_argument('сard', type=int, help='Card id')
-    args = parser.parse_args()
-
     main()
