@@ -41,7 +41,7 @@ def create_parent_parser(prog_name):
         action='count',
         help='enable more verbose output')
     parent_parser.add_argument(
-        '-v', '--version',
+        '-V', '--version',
         action='version',
         version=('Evolution Cli Client v0.0'),
         help='Version')
