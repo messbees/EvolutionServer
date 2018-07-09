@@ -1,3 +1,5 @@
+import json
+
 class Room:
     def __init__(self, name, admin):
         self.name = name
