@@ -28,11 +28,11 @@ def connect_to_room(name, player):
     print(response)
 
 def main():
-    if args.action = "ROOM_NEW":
+    if (args.action == "ROOM_NEW"):
         new_room(args.game, nick)
         room_connect(args.game, nick)
 
-    if args.action = "ROOM_СONNECT":
+    if (args.action == "ROOM_СONNECT"):
         room_connect(args.game, nick)
 
 if __name__ == "__main__":
