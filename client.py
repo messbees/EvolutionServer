@@ -56,7 +56,7 @@ def room_start(args):
     name = args.name
     player = nick
     json = {}
-    json["action"] = "ROOM_CONNECT"
+    json["action"] = "ROOM_START"
     json["room_start"] = {}
     json["room_start"]["game"] = name
     json["room_start"]["player"] = player
