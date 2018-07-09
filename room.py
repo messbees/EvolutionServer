@@ -7,6 +7,7 @@ class Room:
         self.admin = admin
         self.players.append(admin)
         self.save()
+        print('New room named {} by {}'.format(name, admin))
 
     def connect(self, name):
         print("Connecting {} to room {}".format(name, self.name))
