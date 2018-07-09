@@ -1,4 +1,4 @@
 #!/bin/bash
 git pull
 reset
-sudo python3 server.py 8888 159.100.247.47
+sudo python server.py 8888 159.100.247.47
