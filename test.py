@@ -26,8 +26,6 @@ def connect_to_room(name, player):
 
 def main():
     game  = "game22"
-    new_room(game, nick)
-    connect_to_room(game, nick)
     connect_to_room(game, "linegel")
 
 if __name__ == "__main__":
