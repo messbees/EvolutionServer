@@ -16,11 +16,23 @@ def room_new(args):
     json["room_new"] = {}
     json["room_new"]["game"] = name
     json["room_new"]["player"] = admin
-    print(json)
     print("Sending your {} request...".format(json["action"]))
     response = requests.post('http://159.100.247.47:8888', json=json).status_code
     if (response == 200):
-        print("YES!!!")
+        print("Room created!")
+        json = {}
+        json["action"] = "ROOM_CONNECT"
+        json["room_connect"] = {}
+        json["room_connect"]["game"] = name
+        json["room_connect"]["player"] = admin
+        print("Sending your {} request...".format(json["action"]))
+        response = requests.post('http://159.100.247.47:8888', json=json).status_code
+        if (response == 200):
+            print("You have joined this room.")
+        else:
+            print("Error while joining...")
+    elif (response == 409):
+        print("Error. Room with the same name already exists!")
 
 def room_connect(args):
     name = args.name
@@ -30,10 +42,13 @@ def room_connect(args):
     json["room_connect"] = {}
     json["room_connect"]["game"] = name
     json["room_connect"]["player"] = player
-    print(json)
     print("Sending your {} request...".format(json["action"]))
-    response = requests.post('http://159.100.247.47:8888', json=json)
-    print(response)
+    response = requests.post('http://159.100.247.47:8888', json=json).status_code
+    if (response == 200):
+        print("{} have joined this room.".format(player))
+    else:
+        print("Error while joining...")
+
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:
