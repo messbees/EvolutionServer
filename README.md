@@ -1,2 +1,2 @@
-![logo](evolution_logo.png)
+![logo](/evolution_logo.png)
 ## Evolution Game Server
