@@ -37,6 +37,10 @@ def setup_loggers(verbose_level):
 def create_parent_parser(prog_name):
     parent_parser = argparse.ArgumentParser(prog=prog_name, add_help=False)
     parent_parser.add_argument(
+        '-v', '--verbose',
+        action='count',
+        help='enable more verbose output')
+    parent_parser.add_argument(
         '-v', '--version',
         action='version',
         version=('Evolution Cli Client v0.0'),
