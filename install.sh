@@ -2,11 +2,11 @@
 reset
 echo "Begin Evolution Cli installation..."
 
-CLIENT="client.sh"
+CLIENT="/client.sh"
 CLIENT_PATH="$PWD$CLIENT"
 chmod a+x $CLIENT_PATH
 
-SERVER_PATH="server.py"
+SERVER_PATH="/server.py"
 SERVER_PATH="$PWD$TP"
 chmod a+x $SERVER_PATH
 
