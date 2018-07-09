@@ -86,7 +86,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.end_headers()
                     return
                 updated.save()
-                self.wfile.write(room)
                 self.send_response(200)
                 self.end_headers()
             else:
