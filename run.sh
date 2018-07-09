@@ -1,3 +1,3 @@
 #!/bin/bash
 reset
-sudo python server.py 159.100.247.47 8888
+sudo python server.py 8888 159.100.247.47
