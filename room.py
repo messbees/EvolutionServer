@@ -20,6 +20,7 @@ class Room:
     def save(self):
         room = {}
         room["players"] = {}
+        room["name"] = self.name
         index = 0
         for player in self.players:
             room["players"][player] = index
