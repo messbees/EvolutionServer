@@ -45,9 +45,27 @@ def room_connect(args):
     response = requests.post('http://159.100.247.47:8888', json=json).status_code
     if (response == 200):
         print("{} have joined this room.".format(player))
-    else:
-        print("Error while joining...")
+    elif (response == 409):
+        print("{} is already in this room!".format(player))
+    elif (response == 404):
+        print("There is no room with name {}".format(name))
 
+def room_start(args):
+    name = args.name
+    player = args.player
+    json = {}
+    json["action"] = "ROOM_CONNECT"
+    json["room_start"] = {}
+    json["room_start"]["game"] = name
+    json["room_start"]["player"] = player
+    print("Sending your {} request...".format(json["action"]))
+    response = requests.post('http://159.100.247.47:8888', json=json).status_code
+    if (response == 200):
+        print("Game begins!")
+    elif (response == 404):
+        print("There is no room with name {}".format(name))
+    elif (response == 500):
+        print("Game with the same id already exists! Please, try again.")
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:
