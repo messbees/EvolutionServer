@@ -36,11 +36,11 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         data = json.loads(self.data_string)
         action = data["action"]
-        
+
         # calls after creating new room
         if (action == "ROOM_NEW"):
             game_name = data["room_new"]["game"]
-            player_name data["room_new"]["player"]
+            player_name = data["room_new"]["player"]
             if (os.path.isfile("rooms/{}.json".format(game_name)):
                 self._set_headers()
                 self.send_response(409)
