@@ -4,7 +4,7 @@ class Room:
         self.players = []
         self.admin = admin
         self.players.append(admin)
-        save()
+        self.save()
 
     def connect(self, name):
         for player in self.players:
@@ -12,7 +12,7 @@ class Room:
                 print("Error! Player with same name is already in this room!")
                 return false
         self.players.append(name)
-        save()
+        self.save()
         return true
 
     def save(self):
