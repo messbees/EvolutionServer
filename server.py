@@ -43,28 +43,10 @@ class RequestHandler(BaseHTTPRequestHandler):
     def set_game_server(self, server):
         self.game_server = server
 
-    def _set_headers(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-
-    def do_GET(self):
-        request_path = self.path
-
-        print("\n----- Request Start ----->\n")
-        print(request_path)
-        print(self.headers)
-        print("<----- Request End -----\n")
-
-        self.send_response(200)
-        self.send_header("Set-Cookie", "foo=bar")
-
     def do_POST(self):
 
         print("POST request!")
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
-
-
         data = json.loads(self.data_string)
         action = data["action"]
 
@@ -151,9 +133,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 return
         return
-
-    do_PUT = do_POST
-    do_DELETE = do_GET
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='HTTP Server')
