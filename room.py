@@ -18,9 +18,10 @@ class Room:
     def save(self):
         room = {}
         room["players"] = {}
-        players = room["players"]
+        index = 0
         for player in self.players:
-            players.update(player)
+            room["players"][player] = index
+            index = index + 1
         room["admin"] = self.admin
         with open('rooms/{}.json'.format(self.name), 'w') as outfile:
             json.dump(room, outfile)
