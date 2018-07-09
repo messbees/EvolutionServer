@@ -18,7 +18,7 @@ class Game:
         self.deck = deck
 
     def do_evolution(self, player, creature, card):
-        if (creature = 999):
+        if (creature == 999):
             self.players[player].add_creature(card)
             return true
         else:
