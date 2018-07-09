@@ -24,6 +24,7 @@ class Game:
             for c in self.players[player].creatures:
                 if (c.id == creature):
                     c.add_ability(card)
+                    print('Creature {} of {} now have ability"{}".'.format(c.id, player.name, card))
 
     def json(self):
         json = {}
