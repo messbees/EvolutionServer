@@ -53,7 +53,13 @@ def create_parser(prog_name):
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
     subparsers = parser.add_subparsers(title='subcommands', dest='command')
+    room_new_parser(subparsers, parent_parser)
+    room_connect_parser(subparsers, parent_parser)
+    room_start_parser(subparsers, parent_parser)
 
+    return parser
+
+def room_new_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'room_new',
         parents=[parent_parser],
@@ -64,6 +70,7 @@ def create_parser(prog_name):
         type=str,
         help='Room name')
 
+def room_connect_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'room_connect',
         parents=[parent_parser],
@@ -78,6 +85,7 @@ def create_parser(prog_name):
         type=str,
         help='Player nick')
 
+def room_start_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'room_start',
         parents=[parent_parser],
@@ -87,6 +95,3 @@ def create_parser(prog_name):
         'name',
         type=str,
         help='Room name')
-
-
-    return parser
