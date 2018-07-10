@@ -39,9 +39,6 @@ class Game:
             for player in json["players"]:
                 self.players.append(Player(player))
 
-    def __init__(self, json):
-
-
     def do_evolution(self, player, creature, card):
         if not (self.turn == player.name):
             return false
