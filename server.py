@@ -126,12 +126,12 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 return
             else:
-                f = open('rooms/{}.json'.format(name))
+                f = open('rooms/{}.json'.format(game))
                 room = json.loads(f.read())
                 room["status"] = "waiting"
-                with open('rooms/{}.json'.format(name), 'w') as outfile:
+                with open('rooms/{}.json'.format(game), 'w') as outfile:
                     json.dump(json, outfile)
-                f = open('rooms/{}.json'.format(name))
+                f = open('rooms/{}.json'.format(game))
                 self.send_response(200)
                 self.send_header("Content-type", "application/json")
                 self.end_headers()
