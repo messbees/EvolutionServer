@@ -2,7 +2,7 @@ import creature
 import ability
 
 class Player:
-    def __init__(self, mode, **kwagrs):
+    def __init__(self, mode, **kwargs):
         if (mode == 'init'):
             self.name = kwargs["name"]
             deck = kwargs["deck"]
