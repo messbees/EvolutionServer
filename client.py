@@ -149,7 +149,6 @@ def main_wrapper():
     except SystemExit as e:
         raise e
     except:
-        traceback.print_exc(file=sys.stderr)
         sys.exit(1)
 
 if __name__ == "__main__":
