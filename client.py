@@ -97,7 +97,7 @@ def room_start(args):
     json["room_start"] = {}
     data = json["room_start"]
     data["game"] = name
-    daat["player"] = player
+    data["player"] = player
     print('Beginning the game...')
     response = requests.post('http://159.100.247.47:8888', json=json)
     code = response.status_code
@@ -149,6 +149,7 @@ def main_wrapper():
     except SystemExit as e:
         raise e
     except:
+        traceback.print_exc(file=sys.stderr)
         sys.exit(1)
 
 if __name__ == "__main__":
