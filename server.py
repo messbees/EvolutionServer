@@ -114,7 +114,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             game = game_server.new_game(name, players, deck)
             if not (os.path.isfile("games/{}.json".format(game.id))):
                 game.save()
-                print("Game {} created.".format(game.id))
+                print("Game {} begins!".format(game.id))
                 self.send_response(200)
                 self.end_headers()
                 return
@@ -122,6 +122,48 @@ class RequestHandler(BaseHTTPRequestHandler):
                 print('Game with same id already exists.')
                 self.send_response(500)
                 self.end_headers()
+                return
+
+        if (action == "ROOM_UPDATE"):
+            name = data["room_update"]["game"]
+            player = data["room_update"]["player"]
+            if not (os.path.isfile("rooms/{}.json".format(name))):
+                for file in os.listdir("games/"):
+                    if file.endswith(".json"):
+                        f = open(file)
+                        game = json.loads(f.read())
+                        if (game["name"] == game && game["players"][player] != None):
+                            json = {}
+                            json["status"] = "playing"
+                            json["id"] = game["id"]
+                            temp = 'games/{}_connect.json'.format(game["id"])
+                            with open(temp, 'w') as outfile:
+                                json.dump(json, outfile)
+                            f = open(temp)
+                            self.send_response(200)
+                            self.send_header("Content-type", "application/json")
+                            self.end_headers()
+                            self.wfile.write(f.read())
+                            os.remove(temp)
+                            return
+                        else:
+                            self.send_response(404)
+                            self.end_headers()
+                            return
+            else:
+                f = open('rooms/{}.json'.format(name))
+                room = json.loads(f.read())
+                room["status"] = "waiting"
+                with open('rooms/{}.json'.format(name), 'w') as outfile:
+                    json.dump(json, outfile)
+                f = open('rooms/{}.json'.format(name))
+                self.send_response(200)
+                self.send_header("Content-type", "application/json")
+                self.end_headers()
+                self.wfile.write(f.read())
+                return
+
+
 
         # calls after trying to fetch game
         if (action == "CONNECT"):
