@@ -130,7 +130,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 room = json.loads(f.read())
                 room["status"] = "waiting"
                 with open('rooms/{}.json'.format(game), 'w') as outfile:
-                    json.dump(json, outfile)
+                    json.dump(room, outfile)
                 f = open('rooms/{}.json'.format(game))
                 self.send_response(200)
                 self.send_header("Content-type", "application/json")
