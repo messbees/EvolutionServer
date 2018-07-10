@@ -2,26 +2,28 @@ import creature
 import ability
 
 class Player:
-    def __init__(self, name, deck):
-        self.name = name
-        self.creatures = []
-        self.cards = []
-        self.creature_index = 0
-        self.finished = "false"
-        self.discard = 0
-        for index in range(0, 5):
-            self.cards.append(deck.get_card())
-
-    def __inrit__(self, json):
-        self.name = json["name"]
-        self.finished = json["finished"]
-        self.discard = json["discard"]
-        self.creature_index = json["creature_index"]
-        self.cards = []
-        for card in json["cards"]:
-            self.cards.append(card)
-        for creature in json["creatures"]:
-            self.creatures.append(Creature(creature))
+    def __init__(self, mode, **kwagrs):
+        if (mode == 'init'):
+            self.name = kwargs["name"]
+            deck = kwargs["deck"]
+            self.creatures = []
+            self.cards = []
+            self.creature_index = 0
+            self.finished = "false"
+            self.discard = 0
+            for index in range(0, 5):
+                self.cards.append(deck.get_card())
+        elif (mode == 'json'):
+            json = kwargs["json"]
+            self.name = json["name"]
+            self.finished = json["finished"]
+            self.discard = json["discard"]
+            self.creature_index = json["creature_index"]
+            self.cards = []
+            for card in json["cards"]:
+                self.cards.append(card)
+            for creature in json["creatures"]:
+                self.creatures.append(Creature(creature))
 
 
     def add_creature(self, card):
