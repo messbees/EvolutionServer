@@ -146,10 +146,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                             self.wfile.write(f.read())
                             os.remove(temp)
                             return
-                        else:
-                            self.send_response(404)
-                            self.end_headers()
-                            return
+                self.send_response(404)
+                self.end_headers()
+                return
             else:
                 f = open('rooms/{}.json'.format(name))
                 room = json.loads(f.read())
