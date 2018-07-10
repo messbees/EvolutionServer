@@ -19,7 +19,7 @@ class Game:
         self.dice = 0
         self.food = 0
         self.deck = deck
-        save()
+        self.save()
         print("Game {} created.".format(self.id))
 
     def do_evolution(self, player, creature, card):
@@ -57,7 +57,7 @@ class Game:
         self.turn = first.name
 
     def save(self):
-        game = json()
+        game = self.json()
         with open('games/{}.json'.format(self.id), 'w') as outfile:
             json.dump(game, outfile)
 
