@@ -7,33 +7,40 @@ import json
 #from exceptions import EvolutionServerException
 
 class Game:
-    def __init__(self, name, players, deck):
-        self.name = name
-        self.id = random.randrange(1000, 9999)
-        self.round = 1
-        self.stage = "evolution"
-        first = random.choice(players)
-        self.turn = first.name
-        self.players = players
-        for index in (0, len(self.players)-2):
-            players[index].next = players[index+1]
-        players[len(self.players)-1].next = first
-        self.dice = 0
-        self.food = 0
-        self.deck = deck
+    def __init__(self, mode, **kwargs): #name, players, deck):
+        if (mode == 'init'):
+            name = kwargs["name"]
+            players = kwargs["players"]
+            deck = kwargs["players"]
+            self.name = name
+            self.id = random.randrange(1000, 9999)
+            self.round = 1
+            self.stage = "evolution"
+            first = random.choice(players)
+            self.turn = first.name
+            self.players = players
+            for index in (0, len(self.players)-2):
+                players[index].next = players[index+1]
+            players[len(self.players)-1].next = first
+            self.dice = 0
+            self.food = 0
+            self.deck = deck
+        elif (mode == 'json'):
+            json = kwargs["json"]
+            self.name = json["name"]
+            self.id = json["id"]
+            self.round = json["round"]
+            self.stage = json["stage"]
+            self.turn = json["turn"]
+            self.players = []
+            self.dice = 0
+            self.food = 0
+            self.deck = json["deck"]
+            for player in json["players"]:
+                self.players.append(Player(player))
 
     def __init__(self, json):
-        self.name = json["name"]
-        self.id = json["id"]
-        self.round = json["round"]
-        self.stage = json["stage"]
-        self.turn = json["turn"]
-        self.players = []
-        self.dice = 0
-        self.food = 0
-        self.deck = json["deck"]
-        for player in json["players"]:
-            self.players.append(Player(player))
+
 
     def do_evolution(self, player, creature, card):
         if not (self.turn == player.name):
