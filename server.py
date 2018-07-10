@@ -9,7 +9,7 @@ import creature, ability
 import os
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
-from exceptions import EvolutionServerException
+#from exceptions import EvolutionServerException
 
 class Server:
     def __init__(self):
