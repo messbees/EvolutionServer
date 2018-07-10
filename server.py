@@ -132,7 +132,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     if file.endswith(".json"):
                         f = open(file)
                         game = json.loads(f.read())
-                        if (game["name"] == game && game["players"][player] != None):
+                        if (game["name"] == game and game["players"][player] != None):
                             json = {}
                             json["status"] = "playing"
                             json["id"] = game["id"]
