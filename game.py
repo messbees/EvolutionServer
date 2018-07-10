@@ -13,7 +13,7 @@ class Game:
         first = random.choice(players)
         self.turn = first.name
         self.players = players
-        for index in (0, self.players.count()-2):
+        for index in (0, len(self.players)-1):
             players[index].next = players[index+1]
         self.dice = 0
         self.food = 0
