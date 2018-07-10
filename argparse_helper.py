@@ -60,7 +60,8 @@ def create_parser(prog_name):
     room_new_parser(subparsers, parent_parser)
     room_connect_parser(subparsers, parent_parser)
     room_start_parser(subparsers, parent_parser)
-
+    room_update_parser(subparsers, parent_parser)
+    
     return parser
 
 def room_new_parser(subparsers, parent_parser):
@@ -91,6 +92,17 @@ def room_start_parser(subparsers, parent_parser):
         parents=[parent_parser],
         description='Starts the game',
         help='Starts the game')
+    parser.add_argument(
+        'name',
+        type=str,
+        help='Room name')
+
+def room_update_parser(subparsers, parent_parser):
+    parser = subparsers.add_parser(
+        'room_update',
+        parents=[parent_parser],
+        description='Update the room',
+        help='Update the room')
     parser.add_argument(
         'name',
         type=str,
