@@ -9,7 +9,8 @@ import creature, ability
 import os
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
-import exceptions
+from exceptions import EvolutionServerException
+
 class Server:
     def __init__(self):
         # why can't i leave it empty?
@@ -107,18 +108,16 @@ class RequestHandler(BaseHTTPRequestHandler):
             players = []
             for player in room["players"]:
                 players.append(Player(player, deck))
-            game = game_server.new_game(name, players, deck)
-            if (os.path.isfile("games/{}.json".format(game.id))):
-                self.send_response(500)
-                self.end_headers()
-            else:
+            game = None
+            try:
+                game = game_server.new_game(name, players, deck)
                 game.save()
                 self.send_response(200)
                 self.end_headers()
-
-
-            f = open('games/{}.json'.format(game.id))
-            self.wfile.write(f.read())
+            except EvolutionServerException as err:
+                print(err)
+                self.send_response(500)
+                self.end_headers()
 
         # calls after trying to fetch game
         if (action == "CONNECT"):
