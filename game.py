@@ -19,6 +19,8 @@ class Game:
         self.dice = 0
         self.food = 0
         self.deck = deck
+        save()
+        print("Game {} created.".format(self.id))
 
     def do_evolution(self, player, creature, card):
         if not (self.turn == player.name):
