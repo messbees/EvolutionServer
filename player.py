@@ -22,7 +22,7 @@ class Player:
         json["finished"] = self.finished
         for creature in self.creatures:
             json["creatures"][creature.id] = creature.json()
-        json["cards"] = {}
+        json["cards"] = []
         for card in self.cards:
             json["cards"].append(card.id)
         json["discard"] = self.discard
