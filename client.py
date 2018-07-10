@@ -17,23 +17,27 @@ def room_new(args):
     json = {}
     json["action"] = "ROOM_NEW"
     json["room_new"] = {}
-    json["room_new"]["game"] = name
-    json["room_new"]["player"] = admin
+    data = json["room_new"]
+    data["game"] = name
+    data["player"] = admin
     print('Creating room...')
-    response = requests.post('http://159.100.247.47:8888', json=json).status_code
-    if (response == 200):
+    response = requests.post('http://159.100.247.47:8888', json=json)
+    code = response.status_code
+    if (code == 200):
         print("Room created!")
         json = {}
         json["action"] = "ROOM_CONNECT"
         json["room_connect"] = {}
-        json["room_connect"]["game"] = name
-        json["room_connect"]["player"] = admin
-        response = requests.post('http://159.100.247.47:8888', json=json).status_code
-        if (response == 200):
+        data = json["room_connect"]
+        data["game"] = name
+        data["player"] = admin
+        response = requests.post('http://159.100.247.47:8888', json=json)
+        code = response.status_code
+        if (code == 200):
             print("You have joined this room.")
         else:
             print("Error while joining...")
-    elif (response == 409):
+    elif (code == 409):
         print("Error. Room with the same name already exists!")
 
 def room_connect(args):
@@ -42,15 +46,17 @@ def room_connect(args):
     json = {}
     json["action"] = "ROOM_CONNECT"
     json["room_connect"] = {}
-    json["room_connect"]["game"] = name
-    json["room_connect"]["player"] = player
+    data = json["room_connect"]
+    data["game"] = name
+    data["player"] = player
     print('Connecting to room...')
-    response = requests.post('http://159.100.247.47:8888', json=json).status_code
-    if (response == 200):
+    response = requests.post('http://159.100.247.47:8888', json=json)
+    code = response.status_code
+    if (code == 200):
         print("{} have joined this room.".format(player))
-    elif (response == 409):
+    elif (code == 409):
         print("{} is already in this room!".format(player))
-    elif (response == 404):
+    elif (code == 404):
         print("There is no room with name {}".format(name))
 
 def room_update(args):
@@ -59,8 +65,9 @@ def room_update(args):
     json = {}
     json["action"] = "ROOM_UPDATE"
     json["room_update"] = {}
-    json["room_update"]["game"] = name
-    json["room_update"]["player"] = player
+    data = json["room_update"]
+    data["game"] = name
+    data["player"] = player
     print('Updating room...')
     response = requests.post('http://159.100.247.47:8888', json=json)
     code = response.status_code
@@ -88,17 +95,19 @@ def room_start(args):
     json = {}
     json["action"] = "ROOM_START"
     json["room_start"] = {}
-    json["room_start"]["game"] = name
-    json["room_start"]["player"] = player
+    data = json["room_start"]
+    data["game"] = name
+    daat["player"] = player
     print('Beginning the game...')
-    response = requests.post('http://159.100.247.47:8888', json=json).status_code
-    if (response == 200):
+    response = requests.post('http://159.100.247.47:8888', json=json)
+    code = response.status_code
+    if (code == 200):
         print("Game begins!")
-    elif (response == 403):
+    elif (code == 403):
         print("Only game creator is allowed to begin this game!")
-    elif (response == 404):
+    elif (code == 404):
         print("There is no room with name {}".format(name))
-    elif (response == 500):
+    elif (code == 500):
         print("Game with the same id already exists! Please, try again.")
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
