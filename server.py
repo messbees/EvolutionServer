@@ -104,6 +104,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             if not (room["admin"] == admin):
                 self.send_response(403)
                 self.end_headers()
+                return
             deck = Deck()
             players = []
             for player in room["players"]:
@@ -114,10 +115,12 @@ class RequestHandler(BaseHTTPRequestHandler):
                 print("Game {} created.".format(game.id))
                 self.send_response(200)
                 self.end_headers()
+                return
             else:
                 print('Game with this ID already exists!')
                 self.send_response(500)
                 self.end_headers()
+                return
 
         # calls after trying to fetch game
         if (action == "CONNECT"):
