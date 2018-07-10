@@ -112,8 +112,11 @@ class RequestHandler(BaseHTTPRequestHandler):
             game = game_server.new_game(name, players, deck)
             if not (os.path.isfile("games/{}.json".format(game.id))):
                 game.save()
+                print("kek")
                 print("Game {} created.".format(game.id))
+                print("kek")
                 self.send_response(200)
+                print("kek")
                 self.end_headers()
                 return
             else:
