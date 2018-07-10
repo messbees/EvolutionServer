@@ -3,6 +3,7 @@ import player
 import deck
 import ability
 import random
+import json
 
 class Game:
     def __init__(self, name, players, deck):
