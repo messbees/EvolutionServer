@@ -22,7 +22,7 @@ class Room:
         room = {}
         room["players"] = []
         room["name"] = self.name
-        room["status"] - 'waiting'
+        room["status"] = 'waiting'
         for player in self.players:
             room["players"].append(player)
         room["admin"] = self.admin
