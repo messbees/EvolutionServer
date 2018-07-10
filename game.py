@@ -21,10 +21,6 @@ class Game:
         self.dice = 0
         self.food = 0
         self.deck = deck
-        if (self.save()):
-            print("Game {} created.".format(self.id))
-        else:
-            raise EvolutionServerException('Game with this ID already exists!')
 
     def do_evolution(self, player, creature, card):
         if not (self.turn == player.name):
@@ -61,12 +57,9 @@ class Game:
         self.turn = first.name
 
     def save(self):
-        if (os.path.isfile("games/{}.json".format(self.id))):
-            return False
         game = self.json()
         with open('games/{}.json'.format(self.id), 'w') as outfile:
             json.dump(game, outfile)
-            return True
 
     def json(self):
         json = {}
