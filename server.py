@@ -110,19 +110,12 @@ class RequestHandler(BaseHTTPRequestHandler):
             players = []
             for player in room["players"]:
                 players.append(Player(player, deck))
+            print('Creating game...')
             game = game_server.new_game(name, players, deck)
             if not (os.path.isfile("games/{}.json".format(game.id))):
                 game.save()
-                print("kek")
                 print("Game {} created.".format(game.id))
-                print("kek")
                 self.send_response(200)
-                print("kek")
-                self.end_headers()
-                return
-            else:
-                print('Game with this ID already exists!')
-                self.send_response(500)
                 self.end_headers()
                 return
 
