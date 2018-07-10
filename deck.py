@@ -8,6 +8,6 @@ class Deck:
 
     def get_card(self):
         card = random.choice(self.cards)
-        self.cards.pop(card)
+        self.cards.remove(card)
         print("Deck now have {} cards left.".format(self.cards.count))
         return card
