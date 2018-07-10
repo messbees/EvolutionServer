@@ -24,7 +24,7 @@ class Server:
 
     def new_game(self, name, players, deck):
         game = Game(name, players, deck)
-        save_game(game)
+        save_game(self, game)
         return game
 
     def do_evolution(self, game, player, creature, card):
