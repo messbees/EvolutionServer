@@ -13,8 +13,9 @@ class Game:
         first = random.choice(players)
         self.turn = first.name
         self.players = players
-        for index in (0, len(self.players)-1):
+        for index in (0, len(self.players)-2):
             players[index].next = players[index+1]
+        players[len(self.players)-1].next = first
         self.dice = 0
         self.food = 0
         self.deck = deck
