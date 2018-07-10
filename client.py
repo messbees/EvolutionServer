@@ -8,7 +8,8 @@ import os
 import sys
 from exceptions import EvolutionClientException
 
-nick = "messbees"
+f = open('player')
+nick = f.read()
 
 def room_new(args):
     name = args.name
@@ -37,7 +38,7 @@ def room_new(args):
 
 def room_connect(args):
     name = args.name
-    player = args.player
+    player = nick
     json = {}
     json["action"] = "ROOM_CONNECT"
     json["room_connect"] = {}
