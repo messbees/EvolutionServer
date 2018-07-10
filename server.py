@@ -65,7 +65,7 @@ class Server:
         deck = Deck()
         players = []
         for player in room["players"]:
-            players.append(Player(player, deck))
+            players.append(Player('init', name=player, deck=deck))
         print('Creating game...')
         g = game_server.new_game(game, players, deck)
         if not (os.path.isfile("games/{}.json".format(g.id))):
