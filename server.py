@@ -133,12 +133,12 @@ class RequestHandler(BaseHTTPRequestHandler):
                         f = open(file)
                         game = json.loads(f.read())
                         if (game["name"] == game and game["players"][player] != None):
-                            json = {}
-                            json["status"] = "playing"
-                            json["id"] = game["id"]
+                            g = {}
+                            g["status"] = "playing"
+                            g["id"] = game["id"]
                             temp = 'games/{}_connect.json'.format(game["id"])
                             with open(temp, 'w') as outfile:
-                                json.dump(json, outfile)
+                                json.dump(g, outfile)
                             f = open(temp)
                             self.send_response(200)
                             self.send_header("Content-type", "application/json")
