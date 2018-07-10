@@ -68,7 +68,7 @@ class Game:
         json["game"]["id"] = self.id
         json["game"]["round"] = self.round
         json["game"]["stage"] = self.stage
-        json["game"]["turn"] = self.turn.name
+        json["game"]["turn"] = self.turn
         json["game"]["dice"] = self.dice
         json["game"]["food"] = self.food
         json["players"] = {}
