@@ -111,7 +111,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             game = None
             try:
                 game = game_server.new_game(name, players, deck)
-                game.save()
                 self.send_response(200)
                 self.end_headers()
             except EvolutionServerException as err:
