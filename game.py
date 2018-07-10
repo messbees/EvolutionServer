@@ -4,7 +4,7 @@ import deck
 import ability
 import random
 import json
-from exceptions import EvolutionServerException
+#from exceptions import EvolutionServerException
 
 class Game:
     def __init__(self, name, players, deck):
