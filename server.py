@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-import game
+from game import Game
 from room import Room
 from deck import Deck
 from player import Player
