@@ -62,6 +62,7 @@ def room_start(args):
     json["room_start"]["player"] = player
     print("Sending your {} request...".format(json["action"]))
     response = requests.post('http://159.100.247.47:8888', json=json).status_code
+    print(response)
     if (response == 200):
         print("Game begins!")
     elif (response == 403):
