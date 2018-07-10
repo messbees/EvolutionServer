@@ -49,7 +49,7 @@ class Server:
                 if not (updated.connect(player)):
                     return 'WRONG_USER'
             if not (updated.connect(new_player)):
-                return 'WRONG_USER
+                return 'WRONG_USER'
             updated.save()
             return 'JOINED'
         else:
