@@ -10,7 +10,7 @@ class Game:
         self.id = random.randrange(1000, 9999)
         self.round = 1
         self.stage = "evolution"
-        first = random.choise(players)
+        first = random.choice(players)
         self.turn = first.name
         self.players = players
         for index in (0, self.players.count()-2):
