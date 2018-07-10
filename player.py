@@ -6,10 +6,23 @@ class Player:
         self.name = name
         self.creatures = []
         self.cards = []
-        self.finished = "true"
+        self.creature_index = 0
+        self.finished = "false"
         self.discard = 0
         for index in range(0, 5):
             self.cards.append(deck.get_card())
+
+    def __init__(self, json):
+        self.name = json["name"]
+        self.finished = json["finished"]
+        self.discard = json["discard"]
+        self.creature_index = json["creature_index"]
+        self.cards = []
+        for card in json["cards"]:
+            self.cards.append(card)
+        for creature in json["creatures"]:
+            self.creatures.append(Creature(creature))
+
 
     def add_creature(self, card):
         creature = Creature(self, card)
@@ -20,6 +33,7 @@ class Player:
         json["name"] = self.name
         json["creatures"] = {}
         json["finished"] = self.finished
+        json["creature_index"] = self.creature_index
         for creature in self.creatures:
             json["creatures"][creature.id] = creature.json()
         json["cards"] = []

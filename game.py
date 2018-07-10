@@ -22,6 +22,19 @@ class Game:
         self.food = 0
         self.deck = deck
 
+    def __init__(self, json):
+        self.name = json["name"]
+        self.id = json["id"]
+        self.round = json["round"]
+        self.stage = json["stage"]
+        self.turn = json["turn"]
+        self.players = []
+        self.dice = 0
+        self.food = 0
+        self.deck = json["deck"]
+        for player in json["players"]:
+            self.players.append(Player(player))
+
     def do_evolution(self, player, creature, card):
         if not (self.turn == player.name):
             return false
@@ -65,14 +78,13 @@ class Game:
 
     def json(self):
         json = {}
-        json["game"] = {}
-        json["game"]["name"] = self.name
-        json["game"]["id"] = self.id
-        json["game"]["round"] = self.round
-        json["game"]["stage"] = self.stage
-        json["game"]["turn"] = self.turn
-        json["game"]["dice"] = self.dice
-        json["game"]["food"] = self.food
+        json["name"] = self.name
+        json["id"] = self.id
+        json["round"] = self.round
+        json["stage"] = self.stage
+        json["turn"] = self.turn
+        json["dice"] = self.dice
+        json["food"] = self.food
         json["players"] = {}
         for player in self.players:
             json["players"][player.name] = player.json()
