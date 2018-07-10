@@ -25,8 +25,9 @@ class Player:
 
 
     def add_creature(self, card):
-        creature = Creature(self, card)
+        creature = Creature(self.name, card, self.creature_index)
         self.creatures.append(creature)
+        self.creature_index = self.creature_index + 1
 
     def json(self):
         json = {}
