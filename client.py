@@ -6,7 +6,7 @@ import logging
 import argparse_helper
 import os
 import sys
-import exceptions
+from exceptions import EvolutionClientException
 
 nick = "messbees"
 
