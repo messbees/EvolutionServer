@@ -118,6 +118,10 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_response(200)
                 self.end_headers()
                 return
+            else:
+                print('Game with same id already exists.')
+                self.send_response(500)
+                self.end_headers()
 
         # calls after trying to fetch game
         if (action == "CONNECT"):
