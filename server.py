@@ -222,7 +222,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 return
             status = game_server.do_evolution(g, player, creature, card)
 
-            elif (status == 'WRONG_USER'):
+            if (status == 'WRONG_USER'):
                 self.send_response(403)
                 self.end_headers()
                 return
