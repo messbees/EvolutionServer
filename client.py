@@ -69,7 +69,7 @@ def room_update(args):
     data["game"] = name
     data["player"] = player
     print('Updating room...')
-    response = requests.post('http://159.100.247.47:8888', json=json)
+    response = requests.get('http://159.100.247.47:8888', json=json)
     code = response.status_code
     json = response.json
     if (code == 404):
