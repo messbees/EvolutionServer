@@ -24,7 +24,6 @@ class Server:
 
     def new_game(self, name, players, deck):
         game = Game(name, players, deck)
-        save_game(self, game)
         return game
 
     def do_evolution(self, game, player, creature, card):
@@ -34,10 +33,7 @@ class Server:
         return false
 
     def save_game(self, game):
-        game_json = game.json()
-        with open('games/{}.json'.format(game.id), 'w') as outfile:
-            json.dump(game_json, outfile)
-            print("Game {} is saved.".format(game.name))
+        print("")
 
 game_server = Server()
 
