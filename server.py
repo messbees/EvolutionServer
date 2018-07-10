@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 
 import argparse
-import game
+from game import Game
 from room import Room
-import player, creature, ability
+from deck import Deck
+from player import Player
+import creature, ability
 import os
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import json
-import exceptions
+from exceptions import EvolutionServerException
+
 class Server:
     def __init__(self):
         # why can't i leave it empty?
@@ -22,7 +25,6 @@ class Server:
 
     def new_game(self, name, players, deck):
         game = Game(name, players, deck)
-        save_game(game)
         return game
 
     def do_evolution(self, game, player, creature, card):
@@ -32,10 +34,7 @@ class Server:
         return false
 
     def save_game(self, game):
-        game_json = game.json()
-        with open('games/{}.json'.format(game.id), 'w') as outfile:
-            json.dump(game_json, outfile)
-            print("Game {} is saved.".format(game.name))
+        print("")
 
 game_server = Server()
 
@@ -50,6 +49,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         data = json.loads(self.data_string)
         action = data["action"]
 
+        #self.send_header('Content-type', 'application/json')
         # calls after creating new room
         if (action == "ROOM_NEW"):
             game_name = data["room_new"]["game"]
@@ -86,7 +86,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.end_headers()
                     return
                 updated.save()
-                self.wfile.write(room)
                 self.send_response(200)
                 self.end_headers()
             else:
@@ -95,14 +94,37 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         # calls after beginning the game in room by room admin
         if (action == "ROOM_START"):
-            name = data["new_game"]["name"]
+            name = data["room_start"]["game"]
+            admin = data["room_start"]["player"]
+            if not (os.path.isfile("rooms/{}.json".format(name))):
+                self.send_response(404)
+                self.end_headers()
+                return
+            f = open('rooms/{}.json'.format(name))
+            room = json.loads(f.read())
+            if not (room["admin"] == admin):
+                self.send_response(403)
+                self.end_headers()
+                return
             deck = Deck()
             players = []
-            for player in data["new_game"]["players"]:
-                players.append(Player(player["name"], deck))
+            for player in room["players"]:
+                players.append(Player(player, deck))
             game = game_server.new_game(name, players, deck)
-            f = open('games/{}.json'.format(game.id))
-            self.wfile.write(f.read())
+            if not (os.path.isfile("games/{}.json".format(game.id))):
+                game.save()
+                print("kek")
+                print("Game {} created.".format(game.id))
+                print("kek")
+                self.send_response(200)
+                print("kek")
+                self.end_headers()
+                return
+            else:
+                print('Game with this ID already exists!')
+                self.send_response(500)
+                self.end_headers()
+                return
 
         # calls after trying to fetch game
         if (action == "CONNECT"):

@@ -3,6 +3,8 @@ import player
 import deck
 import ability
 import random
+import json
+from exceptions import EvolutionServerException
 
 class Game:
     def __init__(self, name, players, deck):
@@ -10,11 +12,12 @@ class Game:
         self.id = random.randrange(1000, 9999)
         self.round = 1
         self.stage = "evolution"
-        first = random.choise(players)
+        first = random.choice(players)
         self.turn = first.name
         self.players = players
-        for index in (0, self.players.count()-2):
+        for index in (0, len(self.players)-2):
             players[index].next = players[index+1]
+        players[len(self.players)-1].next = first
         self.dice = 0
         self.food = 0
         self.deck = deck
@@ -53,7 +56,10 @@ class Game:
         self.stage = "survival"
         self.turn = first.name
 
-
+    def save(self):
+        game = self.json()
+        with open('games/{}.json'.format(self.id), 'w') as outfile:
+            json.dump(game, outfile)
 
     def json(self):
         json = {}
@@ -62,13 +68,13 @@ class Game:
         json["game"]["id"] = self.id
         json["game"]["round"] = self.round
         json["game"]["stage"] = self.stage
-        json["game"]["turn"] = self.turn.name
+        json["game"]["turn"] = self.turn
         json["game"]["dice"] = self.dice
         json["game"]["food"] = self.food
         json["players"] = {}
         for player in self.players:
             json["players"][player.name] = player.json()
-        json["deck"] = {}
-        for card in self.deck:
+        json["deck"] = []
+        for card in self.deck.cards:
             json["deck"].append(card.id)
         return json
