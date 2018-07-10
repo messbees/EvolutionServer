@@ -84,10 +84,6 @@ def room_connect_parser(subparsers, parent_parser):
         'name',
         type=str,
         help='Room name')
-    parser.add_argument(
-        'player',
-        type=str,
-        help='Player nick')
 
 def room_start_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
