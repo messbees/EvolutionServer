@@ -82,7 +82,7 @@ class Server:
                 if (p["name"] == player):
                     if not (game["turn"] == player):
                         return 'NOT_YOUR_TURN'
-                    if (creature == 999):
+                    #if (creature == 999):
             return 'WRONG_USER'
         else:
             return 'WRONG_STAGE'
