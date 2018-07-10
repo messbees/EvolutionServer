@@ -12,7 +12,7 @@ class Player:
         for index in range(0, 5):
             self.cards.append(deck.get_card())
 
-    def __init__(self, json):
+    def __inrit__(self, json):
         self.name = json["name"]
         self.finished = json["finished"]
         self.discard = json["discard"]
