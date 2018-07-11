@@ -71,7 +71,7 @@ def room_update(args):
     print('Updating room...')
     response = requests.get('http://159.100.247.47:8888', json=json)
     code = response.status_code
-    json = response.json
+    json = response.json()
     if (code == 404):
         print('No room with such name.')
         return
