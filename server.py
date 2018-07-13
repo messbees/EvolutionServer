@@ -12,6 +12,8 @@ import json
 #from exceptions import EvolutionServerException
 
 class Server:
+    Server.version = "0.1.1"
+
     def __init__(self):
         # why can't i leave it empty?
         print("Server initiated.")
@@ -97,6 +99,10 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         data = json.loads(self.data_string)
+        if not (data["version"] == self.game_server.version):
+            self.send_response(405)
+            self.end_headers()
+            return
         action = data["action"]
 
         # calls after trying to fetch room state

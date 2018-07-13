@@ -10,6 +10,15 @@ from exceptions import EvolutionClientException
 
 f = open('player')
 nick = f.read()
+version = '0.1.1'
+
+def post(json):
+    json["version"] = version
+    return requests.post('http://159.100.247.47:8888', json=json)
+
+def get(json):
+    json["version"] = version
+    return requests.get('http://159.100.247.47:8888', json=json)
 
 def room_new(args):
     name = args.name
@@ -21,7 +30,7 @@ def room_new(args):
     data["game"] = name
     data["player"] = admin
     print('Creating room...')
-    response = requests.post('http://159.100.247.47:8888', json=json)
+    response = post(json)
     code = response.status_code
     if (code == 200):
         print("Room created!")
@@ -31,7 +40,7 @@ def room_new(args):
         data = json["room_connect"]
         data["game"] = name
         data["player"] = admin
-        response = requests.post('http://159.100.247.47:8888', json=json)
+        response = post(json)
         code = response.status_code
         if (code == 200):
             print("You have joined this room.")
@@ -50,7 +59,7 @@ def room_connect(args):
     data["game"] = name
     data["player"] = player
     print('Connecting to room...')
-    response = requests.post('http://159.100.247.47:8888', json=json)
+    response = post(json)
     code = response.status_code
     if (code == 200):
         print("{} have joined this room.".format(player))
@@ -69,7 +78,7 @@ def room_update(args):
     data["game"] = name
     data["player"] = player
     print('Updating room...')
-    response = requests.get('http://159.100.247.47:8888', json=json)
+    response = get(json)
     code = response.status_code
     json = response.json()
     if (code == 404):
@@ -99,7 +108,7 @@ def room_start(args):
     data["game"] = name
     data["player"] = player
     print('Beginning the game...')
-    response = requests.post('http://159.100.247.47:8888', json=json)
+    response = post(json)
     code = response.status_code
     if (code == 200):
         print("Game begins!")
