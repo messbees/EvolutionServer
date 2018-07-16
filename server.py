@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import argparse
 from game import Game
 from room import Room
@@ -7,12 +5,12 @@ from deck import Deck
 from player import Player
 import creature, ability
 import os
-from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 #from exceptions import EvolutionServerException
 
 class Server:
-    Server.version = "0.1.1"
+    VERSION = "0.1.1" # wtf?
 
     def __init__(self):
         # why can't i leave it empty?
