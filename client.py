@@ -9,11 +9,6 @@ import json
 import sys
 from exceptions import EvolutionClientException
 
-settings = {}
-settings["nick"] = "Admin"
-settings["version"] = '0.1.1'
-with open('settings.json', 'w') as outfile:
-    json.dump(settings, outfile)
 f = open('settings.json')
 settings = json.loads(f.read())
 nick = settings["nick"]
