@@ -169,6 +169,10 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         data = json.loads(self.data_string)
+        if not (data["version"] == Server.version):
+            self.send_response(405)
+            self.end_headers()
+            return
         action = data["action"]
 
         # calls after creating new room
