@@ -92,8 +92,7 @@ class Game:
         #json["players"] = {}
         #for player in self.players:
         #    json["players"][player.name] = player.json()
-        #json["deck"] = []
-	print(self.deck)
+        json["deck"] = []
         for card in self.deck.cards:
             json["deck"].append(card)
         return json
