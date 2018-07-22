@@ -6,13 +6,10 @@ class Room:
         self.players = []
         self.admin = admin
         self.save()
-        print('Opening room named {} by {}'.format(name, admin))
 
     def connect(self, name):
-        print("{} is in room {}".format(name, self.name))
         for player in self.players:
             if (player == name):
-                print("Error! Player with same name is already in this room!")
                 return False
         self.players.append(name)
         self.save()
