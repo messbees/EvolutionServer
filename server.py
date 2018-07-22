@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 
+from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 import argparse
+import logging
+from log import init_console_logging
+import os
+import json
 from game import Game
 from room import Room
 from deck import Deck
 from player import Player
 import creature, ability
-import os
-from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-import json
 #from exceptions import EvolutionServerException
+
+LOGGER = logging.getLogger(__name__)
+game_server = Server()
 
 class Server:
     f = open('settings.json')
@@ -20,7 +25,7 @@ class Server:
 
     def __init__(self):
         # why can't i leave it empty?
-        print("Server initiated.")
+        LOGGER.info("Server initiated.")
 
     def load_game(self, id):
         if (os.path.isfile("games/{}.json".format(id))):
@@ -35,13 +40,17 @@ class Server:
         return g
 
     def new_room(self, game, admin):
+        LOGGER.info("Player '{}' is trying to create room '{}'.".format(admin, game))
         if (os.path.isfile("rooms/{}.json".format(game))):
+            LOGGER.warn('Room with the same name already exists.')
             return False
         else:
             room = Room(game, admin)
+            LOGGER.info('Room is initialized.')
             return True
 
     def join_room(self, game, new_player):
+        LOGGER.info("Player '{}' is trying to join room '{}'.".format(new_player, game))
         if (os.path.isfile("rooms/{}.json".format(game))):
             f = open('rooms/{}.json'.format(game))
             room = json.loads(f.read())
@@ -53,53 +62,59 @@ class Server:
             updated = Room(name, admin)
             for player in players:
                 if not (updated.connect(player)):
+                    LOGGER.warn("Player with nick '{}' is already in this room.".format(player))
                     return 'WRONG_USER'
             if not (updated.connect(new_player)):
+                LOGGER.warn("Player with nick '{}' is already in this room.".format(new_player))
                 return 'WRONG_USER'
             updated.save()
+            LOGGER.info("Joined successfully.")
             return 'JOINED'
         else:
+            LOGGER.warn('There is no such room.')
             return 'WRONG_ROOM'
 
     def begin_game(self, game, admin):
+        LOGGER.info("Player '{}' is trying to begin the game in room '{}'.".format(admin, game))
         if not (os.path.isfile("rooms/{}.json".format(game))):
+            LOGGER.warn("There is no such game.")
             return 'WRONG_ROOM'
         f = open('rooms/{}.json'.format(game))
         room = json.loads(f.read())
         if not (room["admin"] == admin):
+            LOGGER.warn("{} is not a creator of this room.".format("admin"))
             return 'NOT_ADMIN'
         deck = Deck()
         players = []
         for player in room["players"]:
             players.append(Player('init', name=player, deck=deck))
-        print('Creating game...')
+        LOGGER.info('Creating game...')
         g = game_server.new_game(game, players, deck)
         if not (os.path.isfile("games/{}.json".format(g.id))):
             g.save()
-            print("Game {} begins!".format(g.id))
+            LOGGER.info("Game {} begins!".format(g.id))
             return 'BEGIN'
         else:
-            print('Game with same id already exists.')
+            LOGGER.warn('Game with same id already exists.')
             return 'WRONG_ID'
 
     def do_evolution(self, game, player, creature, card):
+        LOGGER.info("Player '{}' in game '{}' is trying to play card {} on creature {}.".format(player, game, card, creature))
         if (game["stage"] == "evolution"):
             for p in game["players"]:
                 if (p["name"] == player):
                     if not (game["turn"] == player):
+                        LOGGER.warn("It is not {}'s turn!".format(player))
                         return 'NOT_YOUR_TURN'
+                    
                     #if (creature == 999):
             return 'WRONG_USER'
         else:
             return 'WRONG_STAGE'
 
 
-game_server = Server()
 
 class RequestHandler(BaseHTTPRequestHandler):
-    def set_game_server(self, server):
-        self.game_server = server
-
     def do_GET(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         data = json.loads(self.data_string)
@@ -259,6 +274,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
 
-    print('Listening on {}:{}'.format(args.ip, args.port))
+    LOGGER.info('Listening on {}:{}'.format(args.ip, args.port))
     HTTPserver = HTTPServer((args.ip, args.port), RequestHandler)
     HTTPserver.serve_forever()
