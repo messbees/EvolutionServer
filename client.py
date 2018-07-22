@@ -5,6 +5,7 @@ import requests
 import logging
 import argparse_helper
 import os
+import json
 import sys
 from exceptions import EvolutionClientException
 
