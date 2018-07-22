@@ -11,7 +11,7 @@ class Game:
         if (mode == 'init'):
             name = kwargs["name"]
             players = kwargs["players"]
-            deck = kwargs["players"]
+            deck = kwargs["deck"]
             self.name = name
             self.id = random.randrange(1000, 9999)
             self.round = 1
