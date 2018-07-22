@@ -94,5 +94,6 @@ class Game:
         #    json["players"][player.name] = player.json()
         json["deck"] = []
         for card in self.deck.cards:
-            json["deck"].append(card)
+            json["deck"].append(card.id)
+        print('Game will be saved as {}'.format(json))
         return json
