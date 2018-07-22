@@ -12,7 +12,7 @@ import json
 #from exceptions import EvolutionServerException
 
 class Server:
-    self.version = "0.1.1"
+    version = "0.1.1"
 
     def __init__(self):
         # why can't i leave it empty?
@@ -99,7 +99,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         data = json.loads(self.data_string)
-        if not (data["version"] == self.game_server.version):
+        if not (data["version"] == Server.version):
             self.send_response(405)
             self.end_headers()
             return
