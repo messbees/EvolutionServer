@@ -12,7 +12,7 @@ import json
 #from exceptions import EvolutionServerException
 
 class Server:
-    Server.version = "0.1.1"
+    self.version = "0.1.1"
 
     def __init__(self):
         # why can't i leave it empty?
