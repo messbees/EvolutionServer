@@ -12,7 +12,11 @@ import json
 #from exceptions import EvolutionServerException
 
 class Server:
-    version = "0.1.1"
+    f = open('settings.json')
+    settings = json.loads(f.read())
+    nick = settings["nick"]
+    version = settings["version"]
+
 
     def __init__(self):
         # why can't i leave it empty?
