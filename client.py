@@ -8,9 +8,15 @@ import os
 import sys
 from exceptions import EvolutionClientException
 
-f = open('player')
-nick = f.read()
-version = '0.1.1'
+settings = {}
+settings["nick"] = "Admin"
+settings["version"] = '0.1.1'
+with open('settings.json', 'w') as outfile:
+    json.dump(settings, outfile)
+f = open('settings.json')
+settings = json.loads(f.read())
+nick = settings["nick"]
+version = settings["version"]
 
 def post(json):
     json["version"] = version
