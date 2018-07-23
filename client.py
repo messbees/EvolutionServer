@@ -120,7 +120,7 @@ def room_start(args):
         json = response.json
         print("Game begins!")
         args.id = json["id"]
-        update(args)
+        game_update(args)
     elif (code == 403):
         print("Only game creator is allowed to begin this game!")
     elif (code == 423):
