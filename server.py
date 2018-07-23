@@ -111,10 +111,9 @@ class Server:
         else:
             return 'WRONG_STAGE'
 
-
+game_server = Server()
 
 class RequestHandler(BaseHTTPRequestHandler):
-    game_server = Server()
     def do_GET(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         data = json.loads(self.data_string)
