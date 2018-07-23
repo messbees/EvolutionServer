@@ -106,7 +106,7 @@ class Server:
                     if not (game["turn"] == player):
                         LOGGER.warn("It is not {}'s turn!".format(player))
                         return 'NOT_YOUR_TURN'
-                    
+
                     #if (creature == 999):
             return 'WRONG_USER'
         else:
@@ -271,9 +271,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='HTTP Server')
     parser.add_argument('port', type=int, help='Listening port for HTTP Server')
     parser.add_argument('ip', help='HTTP Server IP')
+    parser.add_argument('-v', '--verbose', action='count', default=0, help='Increase output sent to stderr')
     args = parser.parse_args()
 
-
+    init_console_logging(args.verbose)
     LOGGER.info('Listening on {}:{}'.format(args.ip, args.port))
     HTTPserver = HTTPServer((args.ip, args.port), RequestHandler)
     HTTPserver.serve_forever()
