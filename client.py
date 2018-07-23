@@ -84,13 +84,13 @@ def room_update(args):
     print('Updating room...')
     response = get(json)
     code = response.status_code
-    json = response.json()
     if (code == 404):
         print('No room with such name.')
         return
     elif (code == 403):
         print('You are not in this room.')
     elif (code == 200):
+        json = response.json()
         status = json["status"]
         if (status == "waiting"):
             players = ''
