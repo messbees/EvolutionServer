@@ -69,6 +69,8 @@ def room_connect(args):
         print("{} is already in this room!".format(player))
     elif (code == 404):
         print("There is no room with name {}".format(name))
+    elif (code == 403):
+        print("This room was closed.")
 
 def room_update(args):
     name = args.name
@@ -86,7 +88,9 @@ def room_update(args):
     if (code == 404):
         print('No room with such name.')
         return
-    elif(code == 200):
+    elif (code == 403):
+        print('You are not in this room.')
+    elif (code == 200):
         status = json["status"]
         if (status == "waiting"):
             players = ''
@@ -97,7 +101,33 @@ def room_update(args):
             return
         elif(status == "playing"):
             print("Game begins!")
-            print("ID: {}".format(json["id"]))
+            args.id = json["id"]
+            update(args)
+
+def room_start(args):
+    name = args.name
+    player = nick
+    json = {}
+    json["action"] = "ROOM_START"
+    json["room_start"] = {}
+    data = json["room_start"]
+    data["game"] = name
+    data["player"] = player
+    print('Beginning the game...')
+    response = post(json)
+    code = response.status_code
+    if (code == 200):
+        print("Game begins!")
+        args.id = json["id"]
+        update(args)
+    elif (code == 403):
+        print("Only game creator is allowed to begin this game!")
+    elif (code == 423):
+        print("This room was closed.")
+    elif (code == 404):
+        print("There is no room with name {}".format(name))
+    elif (code == 500):
+        print("Game with the same id already exists! Please, try again.")
 
 def update(args):
     id = args.id
@@ -134,27 +164,6 @@ def update(args):
         print("You don't have access to this game.")
     elif (code == 404):
         print("There is no game with such ID.")
-
-def room_start(args):
-    name = args.name
-    player = nick
-    json = {}
-    json["action"] = "ROOM_START"
-    json["room_start"] = {}
-    data = json["room_start"]
-    data["game"] = name
-    data["player"] = player
-    print('Beginning the game...')
-    response = post(json)
-    code = response.status_code
-    if (code == 200):
-        print("Game begins!")
-    elif (code == 403):
-        print("Only game creator is allowed to begin this game!")
-    elif (code == 404):
-        print("There is no room with name {}".format(name))
-    elif (code == 500):
-        print("Game with the same id already exists! Please, try again.")
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:

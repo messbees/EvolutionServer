@@ -53,6 +53,9 @@ class Server:
         if (os.path.isfile("rooms/{}.json".format(game))):
             f = open('rooms/{}.json'.format(game))
             room = json.loads(f.read())
+            if (room["status"] == 'playing'):
+                LOGGER.warn("This game is already playing.")
+                return 'PLAYING'
             name = room["name"]
             players = []
             for player in room["players"]:
@@ -80,6 +83,9 @@ class Server:
             return 'WRONG_ROOM'
         f = open('rooms/{}.json'.format(game))
         room = json.loads(f.read())
+        if (room["status"] == 'playing'):
+            LOGGER.warn("This room was closed.")
+            return 'PLAYING'
         if not (room["admin"] == admin):
             LOGGER.warn("{} is not a creator of this room.".format("admin"))
             return 'NOT_ADMIN'
@@ -91,6 +97,10 @@ class Server:
         g = game_server.new_game(game, players, deck)
         if not (os.path.isfile("games/{}.json".format(g.id))):
             g.save()
+            room["status"] = "playing"
+            room["id"] = g.id
+            with open('rooms/{}.json'.format(room["name"]), 'w') as outfile:
+                json.dump(room, outfile)
             LOGGER.info("Game {} begins!".format(g.id))
             return 'BEGIN'
         else:
@@ -129,24 +139,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             player = data["room_update"]["player"]
             LOGGER.info("Player '{}' is trying to update state of the room '{}'.".format(player, game))
             if not (os.path.isfile("rooms/{}.json".format(game))):
-                for file in os.listdir("games/"):
-                    if file.endswith(".json"):
-                        f = open(file)
-                        game = json.loads(f.read())
-                        if (game["name"] == game and game["players"][player] != None):
-                            g = {}
-                            g["status"] = "playing"
-                            g["id"] = game["id"]
-                            temp = 'games/{}_connect.json'.format(game["id"])
-                            with open(temp, 'w') as outfile:
-                                json.dump(g, outfile)
-                            f = open(temp)
-                            self.send_response(200)
-                            self.send_header("Content-type", "application/json")
-                            self.end_headers()
-                            self.wfile.write(f.read())
-                            os.remove(temp)
-                            return
                 LOGGER.warn("There is no such room.")
                 self.send_response(404)
                 self.end_headers()
@@ -154,22 +146,24 @@ class RequestHandler(BaseHTTPRequestHandler):
             else:
                 f = open('rooms/{}.json'.format(game))
                 room = json.loads(f.read())
-                room["status"] = "waiting"
-                with open('rooms/{}.json'.format(game), 'w') as outfile:
-                    json.dump(room, outfile)
-                f = open('rooms/{}.json'.format(game))
-                self.send_response(200)
-                self.send_header("Content-type", "application/json")
+                for p in room["players"]:
+                    if (p == player):
+                        self.send_response(200)
+                        self.send_header("Content-type", "application/json")
+                        self.end_headers()
+                        self.wfile.write(f.read())
+                        return
+                self.send_response(403)
                 self.end_headers()
-                self.wfile.write(f.read())
                 return
-
 
         # calls after trying to fetch game state
         if (action == "UPDATE"):
             game = data["update"]["game"]
             player = data["update"]["player"]
+            LOGGER.info("Player '{}' is trying to update state of the game '{}'.".format(player, game))
             if not (os.path.isfile("games/{}.json".format(game))):
+                LOGGER.warn("There is no such game!")
                 self.send_response(404)
                 self.end_headers()
                 return
@@ -177,11 +171,24 @@ class RequestHandler(BaseHTTPRequestHandler):
             g = json.loads(f.read())
             for p in g.players:
                 if (player == p.name):
+                    if (os.path.isfile("rooms/{}.json".format(g["name"]))):
+                        f = open('rooms/{}.json'.format(g["name"]))
+                        r = json.loads(f.read())
+                        if (r["players"] == []):
+                            LOGGER.info("All players have connected to the game. Deleting room...")
+                            os.remove('rooms/{}.json'.format(g["name"]))
+                        for (p in r["players"]):
+                            if (p == player):
+                                r["players"].remove(player)
+                                LOGGER.info("Updating for the first time. Deleting from room file...")
+                                with open('rooms/{}.json'.format(r["name"]), 'w') as outfile:
+                                    json.dump(r, outfile)
                     self.send_response(200)
                     self.send_header("Content-type", "application/json")
                     self.end_headers()
                     self.wfile.write(f.read())
                     return
+            LOGGER.warn("Access denied.")
             self.send_response(403)
             self.end_headers()
         LOGGER.info("---------------------------------------------------")
@@ -221,6 +228,9 @@ class RequestHandler(BaseHTTPRequestHandler):
             elif(status == 'JOINED'):
                 self.send_response(200)
                 self.end_headers()
+            elif(status == 'PLAYING'):
+                self.send_response(403)
+                self.end_headers()
 
         # calls after beginning the game in room by room admin
         if (action == "ROOM_START"):
@@ -232,6 +242,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
             elif (status == 'NOT_ADMIN'):
                 self.send_response(403)
+                self.end_headers()
+            elif (status == 'PLAYING'):
+                self.send_response(423)
                 self.end_headers()
             elif (status == 'WRONG_ID'):
                 self.send_response(500)
