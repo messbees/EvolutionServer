@@ -74,11 +74,9 @@ class Game:
         self.turn = first.name
 
     def save(self):
-        print('Saving game...')
         game = self.json()
         with open('games/{}.json'.format(self.id), 'w') as outfile:
             json.dump(game, outfile)
-        print('Game {} saved.'.format(self.id))
 
     def json(self):
         json = {}
@@ -95,5 +93,4 @@ class Game:
         json["deck"] = []
         for card in self.deck.cards:
             json["deck"].append(card.id)
-        print('Game will be saved as {}'.format(json))
         return json
