@@ -184,7 +184,8 @@ class RequestHandler(BaseHTTPRequestHandler):
                     return
             self.send_response(403)
             self.end_headers()
-
+        LOGGER.info("---------------------------------------------------")
+        print("")
 
     def do_POST(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
@@ -266,7 +267,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_response(403)
             self.end_headers()
 
-        return
+        LOGGER.info("---------------------------------------------------")
+        print("")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='HTTP Server')
