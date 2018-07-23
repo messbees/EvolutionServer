@@ -99,6 +99,41 @@ def room_update(args):
             print("Game begins!")
             print("ID: {}".format(json["id"]))
 
+def update(args):
+    id = args.id
+    player = nick
+    json = {}
+    json["action"] = "UPDATE"
+    json["update"] = {}
+    data = json["update"]
+    data["game"] = id
+    data["player"] = player
+    print("Updating the game...")
+    response = post(json)
+    code = response.status_code
+    json = response.json
+    if (code == 200):
+        name = json["name"]
+        id = json["id"]
+        turn = json["turn"]
+        round = json["round"]
+        stage = json["stage"]
+        dice = json["dice"]
+        food = json["food"]
+        players = []
+        for player in json["players"]:
+            players.append(player)
+
+        print("Game '{}' (ID: {}). Current round: {}, stage: {}.".format(name, id, round, stage))
+        if (turn == nick):
+            print("It's YOUR turn!")
+        else:
+            print("It's {}'s turn.".format(turn))
+
+    elif (code == 403):
+        print("You don't have access to this game.")
+    elif (code == 404):
+        print("There is no game with such ID.")
 
 def room_start(args):
     name = args.name
@@ -144,6 +179,8 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 		room_update(args)
 	elif args.command == 'room_start':
 		room_start(args)
+    elif args.command == 'update':
+		update(args)
 
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))

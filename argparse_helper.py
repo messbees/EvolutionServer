@@ -61,7 +61,7 @@ def create_parser(prog_name):
     room_connect_parser(subparsers, parent_parser)
     room_start_parser(subparsers, parent_parser)
     room_update_parser(subparsers, parent_parser)
-    
+    update_parser(subparsers, parent_parser)
     return parser
 
 def room_new_parser(subparsers, parent_parser):
@@ -107,3 +107,14 @@ def room_update_parser(subparsers, parent_parser):
         'name',
         type=str,
         help='Room name')
+
+def update_parser(subparsers, parent_parser):
+    parser = subparsers.add_parser(
+        'update',
+        parents=[parent_parser],
+        description='Updates current state of the game',
+        help='Updates current state of the game')
+    parser.add_argument(
+        'id',
+        type=int,
+        help='Game ID')
