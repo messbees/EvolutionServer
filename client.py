@@ -141,8 +141,8 @@ def update(args):
     print("Updating the game...")
     response = post(json)
     code = response.status_code
-    json = response.json
     if (code == 200):
+        json = response.json
         name = json["name"]
         id = json["id"]
         turn = json["turn"]
