@@ -191,6 +191,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             LOGGER.warn("Access denied.")
             self.send_response(403)
             self.end_headers()
+        
         LOGGER.info("---------------------------------------------------")
         print("")
 
