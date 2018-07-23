@@ -127,6 +127,8 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         data = json.loads(self.data_string)
+        print("")
+        LOGGER.info("---------------------------------------------------")
         if not (data["version"] == Server.version):
             self.send_response(405)
             self.end_headers()
@@ -191,13 +193,15 @@ class RequestHandler(BaseHTTPRequestHandler):
             LOGGER.warn("Access denied.")
             self.send_response(403)
             self.end_headers()
-        
-        LOGGER.info("---------------------------------------------------")
-        print("")
+        #LOGGER.info("---------------------------------------------------")
+        #print("")
 
     def do_POST(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         data = json.loads(self.data_string)
+        print("")
+        LOGGER.info("---------------------------------------------------")
+
         if not (data["version"] == Server.version):
             self.send_response(405)
             self.end_headers()
@@ -281,8 +285,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_response(403)
             self.end_headers()
 
-        LOGGER.info("---------------------------------------------------")
-        print("")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='HTTP Server')
