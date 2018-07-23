@@ -158,7 +158,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 return
 
         # calls after trying to fetch game state
-        if (action == "UPDATE_GAME"):
+        if (action == "GAME_UPDATE"):
             game = data["update"]["game"]
             player = data["update"]["player"]
             LOGGER.info("Player '{}' is trying to update state of the game '{}'.".format(player, game))

@@ -129,11 +129,11 @@ def room_start(args):
     elif (code == 500):
         print("Game with the same id already exists! Please, try again.")
 
-def update(args):
+def game_update(args):
     id = args.id
     player = nick
     json = {}
-    json["action"] = "UPDATE_GAME"
+    json["action"] = "GAME_UPDATE"
     json["update"] = {}
     data = json["update"]
     data["game"] = id
@@ -189,7 +189,7 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	elif args.command == 'room_start':
 		room_start(args)
 	elif args.command == 'update':
-		update(args)
+		game_update(args)
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))
 
