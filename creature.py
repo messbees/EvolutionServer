@@ -10,7 +10,7 @@ class Creature:
         self.fat = 0
         self.abilities = []
         serf.owner = owner
-        print("{} has spawned a new creature (ID: {})".format(self.owner, self.id))
+        #print("{} has spawned a new creature (ID: {})".format(self.owner, self.id))
 
     def __init__(self, json):
         self.id == json["id"]
