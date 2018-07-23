@@ -139,7 +139,7 @@ def game_update(args):
     data["game"] = id
     data["player"] = player
     print("Updating the game...")
-    response = post(json)
+    response = get(json)
     code = response.status_code
     if (code == 200):
         json = response.json
