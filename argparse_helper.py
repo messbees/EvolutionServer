@@ -57,14 +57,14 @@ def create_parser(prog_name):
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
     subparsers = parser.add_subparsers(title='subcommands', dest='command')
-    room_new_parser(subparsers, parent_parser)
-    room_connect_parser(subparsers, parent_parser)
-    room_start_parser(subparsers, parent_parser)
-    room_update_parser(subparsers, parent_parser)
-    update_parser(subparsers, parent_parser)
+    add_room_new_parser(subparsers, parent_parser)
+    add_room_connect_parser(subparsers, parent_parser)
+    add_room_start_parser(subparsers, parent_parser)
+    add_room_update_parser(subparsers, parent_parser)
+    add_update_parser(subparsers, parent_parser)
     return parser
 
-def room_new_parser(subparsers, parent_parser):
+def add_room_new_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'room_new',
         parents=[parent_parser],
@@ -75,7 +75,7 @@ def room_new_parser(subparsers, parent_parser):
         type=str,
         help='Room name')
 
-def room_connect_parser(subparsers, parent_parser):
+def add_room_connect_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'room_connect',
         parents=[parent_parser],
@@ -86,7 +86,7 @@ def room_connect_parser(subparsers, parent_parser):
         type=str,
         help='Room name')
 
-def room_start_parser(subparsers, parent_parser):
+def add_room_start_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'room_start',
         parents=[parent_parser],
@@ -97,7 +97,7 @@ def room_start_parser(subparsers, parent_parser):
         type=str,
         help='Room name')
 
-def room_update_parser(subparsers, parent_parser):
+def add_room_update_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'room_update',
         parents=[parent_parser],
@@ -108,7 +108,7 @@ def room_update_parser(subparsers, parent_parser):
         type=str,
         help='Room name')
 
-def update_parser(subparsers, parent_parser):
+def add_update_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'update',
         parents=[parent_parser],
