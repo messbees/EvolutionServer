@@ -149,9 +149,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                 for p in room["players"]:
                     if (p == player):
                         self.send_response(200)
+                        self.wfile.write(f.read())
                         self.send_header("Content-type", "application/json")
                         self.end_headers()
-                        self.wfile.write(f.read())
                         return
                 self.send_response(403)
                 self.end_headers()
