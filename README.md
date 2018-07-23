@@ -3,11 +3,12 @@
 version 0.1.1
 
 ## Changelog
-- fix room creation and joining
+- fix room creation, joining and update
+- fix starting a game
+- add (very raw) evolution process
+- add logger to a server
+- add CLI client
 - lots of code reworking
-- add turns change (still no survival stage)
-- add test.py for server testing
-- replace test.py with real cli client
 
 ## Bugs
-- HTTP 500 code after beginning game
+-
