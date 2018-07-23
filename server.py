@@ -14,7 +14,6 @@ import creature, ability
 #from exceptions import EvolutionServerException
 
 LOGGER = logging.getLogger(__name__)
-game_server = Server()
 
 class Server:
     f = open('settings.json')
@@ -115,6 +114,7 @@ class Server:
 
 
 class RequestHandler(BaseHTTPRequestHandler):
+    game_server = Server()
     def do_GET(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         data = json.loads(self.data_string)
