@@ -186,9 +186,11 @@ class RequestHandler(BaseHTTPRequestHandler):
                                 with open('rooms/{}.json'.format(r["name"]), 'w') as outfile:
                                     json.dump(r, outfile)
                     self.send_response(200)
+                    f = open('games/{}.json'.format(game))
+                    LOGGER.debug(f.read())
+                    self.wfile.write(f.read())
                     self.send_header("Content-type", "application/json")
                     self.end_headers()
-                    self.wfile.write(f.read())
                     return
             LOGGER.warn("Access denied.")
             self.send_response(403)
