@@ -102,7 +102,7 @@ def room_update(args):
         elif(status == "playing"):
             print("Game begins!")
             args.id = json["id"]
-            update(args)
+            game_update(args)
 
 def room_start(args):
     name = args.name

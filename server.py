@@ -185,9 +185,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                                 LOGGER.info("Updating for the first time. Deleting from room file...")
                                 with open('rooms/{}.json'.format(r["name"]), 'w') as outfile:
                                     json.dump(r, outfile)
-                    self.send_response(200)
                     f = open('games/{}.json'.format(game))
                     LOGGER.debug(f.read())
+                    self.send_response(200)
                     self.wfile.write(f.read())
                     self.send_header("Content-type", "application/json")
                     self.end_headers()
