@@ -132,7 +132,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             return
         action = data["action"]
-
+        LOGGER.debug(data)
         # calls after trying to fetch room state
         if (action == "ROOM_UPDATE"):
             game = data["room_update"]["game"]
