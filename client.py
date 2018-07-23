@@ -133,7 +133,7 @@ def update(args):
     id = args.id
     player = nick
     json = {}
-    json["action"] = "UPDATE"
+    json["action"] = "UPDATE_GAME"
     json["update"] = {}
     data = json["update"]
     data["game"] = id
