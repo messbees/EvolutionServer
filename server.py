@@ -127,6 +127,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if (action == "ROOM_UPDATE"):
             game = data["room_update"]["game"]
             player = data["room_update"]["player"]
+            LOGGER.info("Player '{}' is trying to update state of the room '{}'.".format(player, game))
             if not (os.path.isfile("rooms/{}.json".format(game))):
                 for file in os.listdir("games/"):
                     if file.endswith(".json"):
@@ -146,6 +147,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                             self.wfile.write(f.read())
                             os.remove(temp)
                             return
+                LOGGER.warn("There is no such room.")
                 self.send_response(404)
                 self.end_headers()
                 return
