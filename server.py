@@ -169,7 +169,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 return
             f = open('games/{}.json'.format(game))
             g = json.loads(f.read())
-            for p in g.players:
+            for p in g["players"]:
                 if (player == p.name):
                     if (os.path.isfile("rooms/{}.json".format(g["name"]))):
                         f = open('rooms/{}.json'.format(g["name"]))
