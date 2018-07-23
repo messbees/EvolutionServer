@@ -177,7 +177,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                         if (r["players"] == []):
                             LOGGER.info("All players have connected to the game. Deleting room...")
                             os.remove('rooms/{}.json'.format(g["name"]))
-                        for (p in r["players"]):
+                        for p in r["players"]:
                             if (p == player):
                                 r["players"].remove(player)
                                 LOGGER.info("Updating for the first time. Deleting from room file...")
