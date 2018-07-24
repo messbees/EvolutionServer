@@ -293,6 +293,12 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_response(403)
             self.end_headers()
 
+        if (action == "TEST"):
+            f = open('rooms/null.json')
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(f.read())
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='HTTP Server')
