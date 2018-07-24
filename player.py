@@ -13,7 +13,7 @@ class Player:
             self.discard = 0
             for index in range(0, 5):
                 self.cards.append(deck.get_card())
-        elif (mode == 'json'):
+        elif (mode == 'load'):
             json = kwargs["json"]
             self.name = json["name"]
             self.finished = json["finished"]
