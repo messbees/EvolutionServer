@@ -186,7 +186,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                                 room["players"].remove(player)
                                 LOGGER.debug("Updating for the first time. Deleting player from room file...")
                                 with open('rooms/{}.json'.format(room["name"]), 'w') as outfile:
-                                    json.dump(r, outfile)
+                                    json.dump(room, outfile)
                         if (room["players"] == []):
                             LOGGER.info("All players have connected to the game. Deleting room...")
                             os.remove('rooms/{}.json'.format(room["name"]))
