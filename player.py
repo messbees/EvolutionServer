@@ -20,6 +20,7 @@ class Player:
             self.discard = json["discard"]
             self.creature_index = json["creature_index"]
             self.cards = []
+            self.creatures = []
             for card in json["cards"]:
                 self.cards.append(card)
             for creature in json["creatures"]:
