@@ -4,6 +4,7 @@ import deck
 import ability
 import random
 import json
+from player import Player
 #from exceptions import EvolutionServerException
 
 class Game:
