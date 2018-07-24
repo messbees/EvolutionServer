@@ -7,7 +7,7 @@ class Player:
             self.name = kwargs["name"]
             deck = kwargs["deck"]
             self.creatures = []
-            self.cards = []
+            self.cards = []t
             self.creature_index = 0
             self.finished = "false"
             self.discard = 0
@@ -15,6 +15,7 @@ class Player:
                 self.cards.append(deck.get_card())
         elif (mode == 'load'):
             json = kwargs["json"]
+            print(json)
             self.name = json["name"]
             self.finished = json["finished"]
             self.discard = json["discard"]
