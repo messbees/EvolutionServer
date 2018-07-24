@@ -15,7 +15,6 @@ class Player:
                 self.cards.append(deck.get_card())
         elif (mode == 'load'):
             json = kwargs["json"]
-            print(json)
             self.name = json["name"]
             self.finished = json["finished"]
             self.discard = json["discard"]
