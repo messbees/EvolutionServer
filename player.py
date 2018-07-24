@@ -7,7 +7,7 @@ class Player:
             self.name = kwargs["name"]
             deck = kwargs["deck"]
             self.creatures = []
-            self.cards = []t
+            self.cards = []
             self.creature_index = 0
             self.finished = "false"
             self.discard = 0
