@@ -25,7 +25,7 @@ class Game:
             self.dice = 0
             self.food = 0
             self.deck = deck
-        elif (mode == 'json'):
+        elif (mode == 'load'):
             json = kwargs["json"]
             self.name = json["name"]
             self.id = json["id"]
