@@ -37,4 +37,7 @@ def initialyze():
     abilities.append(Ability("Dummy", "This is dummy ability number 6", "passive", 8))
     abilities.append(Ability("Dummy", "This is dummy ability number 7", "passive", 9))
     abilities.append(Ability("Dummy", "This is dummy ability number 8", "passive", 10))
-    return abilities
+    a = []
+    for ability in abilities:
+        a.append(ability.id)
+    return a
