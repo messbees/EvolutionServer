@@ -165,7 +165,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if (action == "GAME_UPDATE"):
             id = data["update"]["game"]
             player = data["update"]["player"]
-            LOGGER.info("Player '{}' is trying to update state of the game '{}'.".format(player, game))
+            LOGGER.info("Player '{}' is trying to update state of the game '{}'.".format(player, id))
             game = game_server.load_game(id)
             if not (game):
                 LOGGER.warn("There is no such game.")
@@ -176,20 +176,20 @@ class RequestHandler(BaseHTTPRequestHandler):
             for p in game:
                 if (player == p.name):
                     LOGGER.debug("Player name matches, player is in this game!")
-                    if (os.path.isfile("rooms/{}.json".format(g["name"]))):
+                    if (os.path.isfile("rooms/{}.json".format(game.name))):
                         LOGGER.debug("Room of this game still exists.")
-                        room = open('rooms/{}.json'.format(g["name"]))
-                        r = json.loads(f.read())
+                        f = open('rooms/{}.json'.format(game.name))
+                        room = json.loads(f.read())
                         LOGGER.debug("Checking if this player is still in the room...")
-                        for p in r["players"]:
+                        for p in room["players"]:
                             if (p == player):
-                                r["players"].remove(player)
+                                room["players"].remove(player)
                                 LOGGER.debug("Updating for the first time. Deleting player from room file...")
-                                with open('rooms/{}.json'.format(r["name"]), 'w') as outfile:
+                                with open('rooms/{}.json'.format(room["name"]), 'w') as outfile:
                                     json.dump(r, outfile)
-                        if (r["players"] == []):
+                        if (room["players"] == []):
                             LOGGER.info("All players have connected to the game. Deleting room...")
-                            os.remove('rooms/{}.json'.format(r["name"]))
+                            os.remove('rooms/{}.json'.format(room["name"]))
                     self.send_response(200)
                     self.send_header("Content-type", "application/json")
                     self.end_headers()
