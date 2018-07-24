@@ -128,7 +128,7 @@ def room_start(args):
         print("Game with the same id already exists! Please, try again.")
 
 # TEST!!!!!!
-def game_update(args):
+def _game_update(args):
     json = {}
     json["action"] = 'TEST'
     response = post(json)
@@ -137,7 +137,7 @@ def game_update(args):
         json = response.json()
         print(json)
 
-def _game_update(args):
+def game_update(args):
     id = args.id
     player = nick
     json = {}
