@@ -89,9 +89,9 @@ class Game:
         json["turn"] = self.turn
         json["dice"] = self.dice
         json["food"] = self.food
-        json["players"] = {}
+        json["players"] = []
         for player in self.players:
-            json["players"][player.name] = player.json()
+            json["players"].append(player.json())
         json["deck"] = []
         for card in self.deck.cards:
             json["deck"].append(card.id)
