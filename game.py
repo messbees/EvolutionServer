@@ -93,5 +93,5 @@ class Game:
             json["players"].append(player.json())
         json["deck"] = []
         for card in self.deck.cards:
-            json["deck"].append(card.id)
+            json["deck"].append(card)
         return json
