@@ -29,10 +29,11 @@ class Server:
     def load_game(self, id):
         if (os.path.isfile("games/{}.json".format(id))):
             f = open('games/{}.json'.format(id))
-            game = json.loads(f.read())
+            json = json.loads(f.read())
+            game = Game('load', json=json)
             return game
         else:
-            return None
+            return False
 
     def new_game(self, game, players, deck):
         g = Game('init', name=game, players=players, deck=deck)
@@ -151,7 +152,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 room = json.loads(f.read())
                 for p in room["players"]:
                     if (p == player):
-                        LOGGER.debug(f.read())
                         self.send_response(200)
                         self.send_header("Content-type", "application/json")
                         self.end_headers()
@@ -163,24 +163,22 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         # calls after trying to fetch game state
         if (action == "GAME_UPDATE"):
-            game = data["update"]["game"]
+            id = data["update"]["game"]
             player = data["update"]["player"]
             LOGGER.info("Player '{}' is trying to update state of the game '{}'.".format(player, game))
-            if not (os.path.isfile("games/{}.json".format(game))):
-                LOGGER.warn("There is no such game!")
+            game = game_server.load_game(id)
+            if not (game):
+                LOGGER.warn("There is no such game.")
                 self.send_response(404)
                 self.end_headers()
                 return
-            f = open('games/{}.json'.format(game))
-            g = json.loads(f.read())
             LOGGER.debug("Checking if player is in this game...")
-            for p in g["players"]:
-                LOGGER.debug("Cheking {}...".format(p))
-                if (player == p):
+            for p in game:
+                if (player == p.name):
                     LOGGER.debug("Player name matches, player is in this game!")
                     if (os.path.isfile("rooms/{}.json".format(g["name"]))):
-                        LOGGER.debug("Room of this game still exists...")
-                        f = open('rooms/{}.json'.format(g["name"]))
+                        LOGGER.debug("Room of this game still exists.")
+                        room = open('rooms/{}.json'.format(g["name"]))
                         r = json.loads(f.read())
                         LOGGER.debug("Checking if this player is still in the room...")
                         for p in r["players"]:
@@ -192,19 +190,14 @@ class RequestHandler(BaseHTTPRequestHandler):
                         if (r["players"] == []):
                             LOGGER.info("All players have connected to the game. Deleting room...")
                             os.remove('rooms/{}.json'.format(r["name"]))
-                    f = open('games/{}.json'.format(game))
-                    j = json.loads(f.read())
-                    LOGGER.debug(j)
                     self.send_response(200)
-                    self.wfile.write(j)
                     self.send_header("Content-type", "application/json")
                     self.end_headers()
+                    self.wfile.write(game.json)
                     return
-            LOGGER.warn("Access denied.")
+            LOGGER.warn("Player is not in this game.")
             self.send_response(403)
             self.end_headers()
-        #LOGGER.info("---------------------------------------------------")
-        #print("")
 
     def do_POST(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
