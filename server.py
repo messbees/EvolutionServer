@@ -151,6 +151,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 room = json.loads(f.read())
                 for p in room["players"]:
                     if (p == player):
+                        LOGGER.debug(f.read())
                         self.send_response(200)
                         self.send_header("Content-type", "application/json")
                         self.end_headers()
