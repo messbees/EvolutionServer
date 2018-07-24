@@ -173,7 +173,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 return
             LOGGER.debug("Checking if player is in this game...")
-            for p in game:
+            for p in game.players:
                 if (player == p.name):
                     LOGGER.debug("Player name matches, player is in this game!")
                     if (os.path.isfile("rooms/{}.json".format(game.name))):
