@@ -28,6 +28,7 @@ class Game:
             self.deck = deck
         elif (mode == 'load'):
             json = kwargs["json"]
+            print(json)
             self.name = json["name"]
             self.id = json["id"]
             self.round = json["round"]
