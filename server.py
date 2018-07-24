@@ -191,7 +191,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                             LOGGER.info("All players have connected to the game. Deleting room...")
                             os.remove('rooms/{}.json'.format(r["name"]))
                     f = open('games/{}.json'.format(game))
-                    j = json.loads(f)
+                    j = json.loads(f.read())
                     LOGGER.debug(j)
                     j = json.dumps(j)
                     LOGGER.debug(j)
