@@ -42,6 +42,6 @@ class Player:
             json["creatures"][creature.id] = creature.json()
         json["cards"] = []
         for card in self.cards:
-            json["cards"].append(card.id)
+            json["cards"].append(card)
         json["discard"] = self.discard
         return json
