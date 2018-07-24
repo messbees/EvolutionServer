@@ -29,8 +29,8 @@ class Server:
     def load_game(self, id):
         if (os.path.isfile("games/{}.json".format(id))):
             f = open('games/{}.json'.format(id))
-            json = json.loads(f.read())
-            game = Game('load', json=json)
+            j = json.loads(f.read())
+            game = Game('load', json=j)
             return game
         else:
             return False
