@@ -38,7 +38,7 @@ class Game:
             self.food = 0
             self.deck = json["deck"]
             for player in json["players"]:
-                self.players.append(Player(player))
+                self.players.append(Player('load', json=player))
 
     def do_evolution(self, player, creature, card):
         if not (self.turn == player.name):
