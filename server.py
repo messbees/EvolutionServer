@@ -193,8 +193,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                     f = open('games/{}.json'.format(game))
                     j = json.loads(f.read())
                     LOGGER.debug(j)
-                    j = json.dumps(j)
-                    LOGGER.debug(j)
                     self.send_response(200)
                     self.wfile.write(j)
                     self.send_header("Content-type", "application/json")
