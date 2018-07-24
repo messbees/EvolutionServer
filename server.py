@@ -151,7 +151,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 for p in room["players"]:
                     if (p == player):
                         self.send_response(200)
-                        self.wfile.write(room)
+                        self.wfile.write(json.dumps(room))
                         self.send_header("Content-type", "application/json")
                         self.end_headers()
                         return
@@ -191,9 +191,8 @@ class RequestHandler(BaseHTTPRequestHandler):
                             LOGGER.info("All players have connected to the game. Deleting room...")
                             os.remove('rooms/{}.json'.format(r["name"]))
                     f = open('games/{}.json'.format(game))
-                    j = json.loads(f.read())
                     self.send_response(200)
-                    self.wfile.write(j)
+                    self.wfile.write(f.read())
                     self.send_header("Content-type", "application/json")
                     self.end_headers()
                     return
