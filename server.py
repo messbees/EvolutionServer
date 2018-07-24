@@ -171,20 +171,26 @@ class RequestHandler(BaseHTTPRequestHandler):
                 return
             f = open('games/{}.json'.format(game))
             g = json.loads(f.read())
+            LOGGER.debug("Checking if player is in this game...")
             for p in g["players"]:
+                LOGGER.debug("Cheking {}...".format(p))
                 if (player == p):
+                    LOGGER.debug("Player name matches, player is in this game!")
                     if (os.path.isfile("rooms/{}.json".format(g["name"]))):
+                        LOGGER.debug("Room of this game still exists...")
                         f = open('rooms/{}.json'.format(g["name"]))
                         r = json.loads(f.read())
-                        if (r["players"] == []):
-                            LOGGER.info("All players have connected to the game. Deleting room...")
-                            os.remove('rooms/{}.json'.format(g["name"]))
+                        LOGGER.debug("Checking if this player is still in the room...")
                         for p in r["players"]:
                             if (p == player):
                                 r["players"].remove(player)
-                                LOGGER.info("Updating for the first time. Deleting from room file...")
+                                LOGGER.debug("Updating for the first time. Deleting player from room file...")
                                 with open('rooms/{}.json'.format(r["name"]), 'w') as outfile:
                                     json.dump(r, outfile)
+                        if (r["players"] == []):
+                            LOGGER.info("All players have connected to the game. Deleting room...")
+                            os.remove('rooms/{}.json'.format(r["name"]))
+                    LOGGER.debug("Sending game json...")    
                     f = open('games/{}.json'.format(game))
                     LOGGER.debug(f.read())
                     self.send_response(200)
