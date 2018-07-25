@@ -161,7 +161,8 @@ def game_update(args):
         players = []
         for player in json["players"]:
             players.append(player)
-
+        with open('saved_games/{}.json'.format(id), 'w') as outfile:
+            json.dump(json, outfile)
         print("Game '{}' (ID: {}). Current round: {}, stage: {}.".format(name, id, round, stage))
         if (turn == nick):
             print("It's YOUR turn!")
