@@ -62,6 +62,7 @@ def create_parser(prog_name):
     add_room_start_parser(subparsers, parent_parser)
     add_room_update_parser(subparsers, parent_parser)
     add_update_parser(subparsers, parent_parser)
+    add_show_parser(subparsers, parent_parser)
     return parser
 
 def add_room_new_parser(subparsers, parent_parser):
@@ -114,6 +115,17 @@ def add_update_parser(subparsers, parent_parser):
         parents=[parent_parser],
         description='Updates current state of the game',
         help='Updates current state of the game')
+    parser.add_argument(
+        'id',
+        type=int,
+        help='Game ID')
+
+def add_show_parser(subparsers, parent_parser):
+    parser = subparsers.add_parser(
+        'show',
+        parents=[parent_parser],
+        description='Shows game desk',
+        help='Shows game desk')
     parser.add_argument(
         'id',
         type=int,

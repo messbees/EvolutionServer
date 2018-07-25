@@ -174,6 +174,9 @@ def game_update(args):
     elif (code == 404):
         print("There is no game with such ID.")
 
+def game_show(args):
+    # # TODO: ...
+
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:
 		args = sys.argv[1:]
@@ -199,6 +202,8 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 		room_start(args)
 	elif args.command == 'update':
 		game_update(args)
+	elif args.command == 'show':
+		game_show(args)
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))
 
