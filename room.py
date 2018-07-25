@@ -1,26 +1,27 @@
+import json
+
 class Room:
     def __init__(self, name, admin):
         self.name = name
         self.players = []
         self.admin = admin
-        players.append(admin)
-        save()
+        self.save()
 
     def connect(self, name):
         for player in self.players:
             if (player == name):
-                print("Error! Player with same name is already in this room!")
-                return false
+                return False
         self.players.append(name)
-        save()
-        return true
+        self.save()
+        return True
 
     def save(self):
         room = {}
-        room["players"] = {}
-        players = room["players"]
+        room["players"] = []
+        room["name"] = self.name
+        room["status"] = 'waiting'
         for player in self.players:
-            players.update(player)
+            room["players"].append(player)
         room["admin"] = self.admin
         with open('rooms/{}.json'.format(self.name), 'w') as outfile:
             json.dump(room, outfile)
