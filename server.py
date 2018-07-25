@@ -135,7 +135,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             return
         action = data["action"]
-        LOGGER.debug(data)
 
         # calls after trying to fetch room state
         if (action == "ROOM_UPDATE"):
@@ -172,19 +171,19 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_response(404)
                 self.end_headers()
                 return
-            LOGGER.debug("Checking if player is in this game...")
+            #LOGGER.debug("Checking if player is in this game...")
             for p in game.players:
                 if (player == p.name):
-                    LOGGER.debug("Player name matches, player is in this game!")
+                    #LOGGER.debug("Player name matches, player is in this game!")
                     if (os.path.isfile("rooms/{}.json".format(game.name))):
-                        LOGGER.debug("Room of this game still exists.")
+                        LOGGER.info("Room of this game still exists.")
                         f = open('rooms/{}.json'.format(game.name))
                         room = json.loads(f.read())
-                        LOGGER.debug("Checking if this player is still in the room...")
+                        #LOGGER.debug("Checking if this player is still in the room...")
                         for p in room["players"]:
                             if (p == player):
                                 room["players"].remove(player)
-                                LOGGER.debug("Updating for the first time. Deleting player from room file...")
+                                #LOGGER.debug("Player has connected for the first time. Deleting player from room file...")
                                 with open('rooms/{}.json'.format(room["name"]), 'w') as outfile:
                                     json.dump(room, outfile)
                         if (room["players"] == []):
