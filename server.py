@@ -20,7 +20,7 @@ class Server:
     settings = json.loads(f.read())
     nick = settings["nick"]
     version = settings["version"]
-
+    self.games = []
 
     def __init__(self):
         # why can't i leave it empty?
@@ -28,9 +28,13 @@ class Server:
 
     def load_game(self, id):
         if (os.path.isfile("games/{}.json".format(id))):
+            for game in self.games:
+                if (game.id == id):
+                    return game
             f = open('games/{}.json'.format(id))
             j = json.loads(f.read())
             game = Game('load', json=j)
+            self.games.append(game)
             return game
         else:
             return False
