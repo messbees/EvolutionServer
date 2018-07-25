@@ -165,7 +165,11 @@ def game_update(args):
         print("There is no game with such ID.")
 
 def game_show(args):
-    # # TODO: ...
+    id = args.id
+    if not (os.path.isfile("saved_games/{}.json".format(id))):
+        print("No such game found.")
+        return
+    print("Coming soon...")
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:
