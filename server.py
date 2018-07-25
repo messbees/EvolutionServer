@@ -193,7 +193,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.send_response(200)
                     self.send_header("Content-type", "application/json")
                     self.end_headers()
-                    self.wfile.write(game.json())
+                    self.wfile.write(json.dumps(game.json()))
                     return
             LOGGER.warn("Player is not in this game.")
             self.send_response(403)
