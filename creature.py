@@ -2,25 +2,28 @@ import player
 import ability
 
 class Creature:
-    def __init__(self, owner, card, id):
-        self.card = card
-        self.id = id
-        self.hunger = 1
-        self.food = 0
-        self.fat = 0
-        self.abilities = []
-        serf.owner = owner
-        #print("{} has spawned a new creature (ID: {})".format(self.owner, self.id))
-
-    def __init__(self, json):
-        self.id == json["id"]
-        self.hunger = json["hunger"]
-        self.food = json["food"]
-        self.fat = json["fat"]
-        self.abilities = []
-        for ability in json["abilities"]:
-            self.abilities.append(ability)
-        serf.owner = json["owner"]
+    def __init__(self, mode, **kwargs):
+        if (mode == 'init'):
+            card = kwargs["card"]
+            owner = kwargs["owner"]
+            id = kwargs["id"]
+            seld.id = id
+            self.card = card
+            self.hunger = 1
+            self.food = 0
+            self.fat = 0
+            self.abilities = []
+            serf.owner = owner
+        if (mode == 'json'):
+            json = kwargs["json"]
+            self.id == json["id"]
+            self.hunger = json["hunger"]
+            self.food = json["food"]
+            self.fat = json["fat"]
+            self.abilities = []
+            for ability in json["abilities"]:
+                self.abilities.append(ability)
+            serf.owner = json["owner"]
 
     def add_ability(self, card):
         self.abilities.append(card)
