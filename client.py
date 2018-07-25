@@ -127,16 +127,6 @@ def room_start(args):
     elif (code == 500):
         print("Game with the same id already exists! Please, try again.")
 
-# TEST!!!!!!
-def _game_update(args):
-    json = {}
-    json["action"] = 'TEST'
-    response = post(json)
-    code = response.status_code
-    if (code == 200):
-        json = response.json()
-        print(json)
-
 def game_update(args):
     id = args.id
     player = nick
