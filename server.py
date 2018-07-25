@@ -36,7 +36,7 @@ class Server:
             return False
 
     def new_game(self, game, players, deck):
-        g = Game('init', name=game, players=players, deck=deck)
+        g = Game('init', name=game, players=players, deck=deck.cards)
         return g
 
     def new_room(self, game, admin):
