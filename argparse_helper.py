@@ -63,6 +63,7 @@ def create_parser(prog_name):
     add_room_update_parser(subparsers, parent_parser)
     add_update_parser(subparsers, parent_parser)
     add_show_parser(subparsers, parent_parser)
+    add_take_parser(subparsers, parent_parser)
     return parser
 
 def add_room_new_parser(subparsers, parent_parser):
@@ -130,3 +131,22 @@ def add_show_parser(subparsers, parent_parser):
         'id',
         type=int,
         help='Game ID')
+
+def add_take_parser(subparsers, parent_parser):
+    parser = subparsers.add_parser(
+        'take',
+        parents=[parent_parser],
+        description='Takes turn at evolution stage',
+        help='Takes turn at evolution stage')
+    parser.add_argument(
+        'id',
+        type=int,
+        help='Game ID')
+    parser.add_argument(
+        'creature',
+        type=int,
+        help='Creatute ID')
+    parser.add_argument(
+        'card',
+        type=int,
+        help='Card ID')
