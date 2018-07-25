@@ -76,7 +76,6 @@ class Game:
 
     def save(self):
         game = self.json()
-        print(game)
         with open('games/{}.json'.format(self.id), 'w') as outfile:
             json.dump(game, outfile)
 
@@ -96,4 +95,3 @@ class Game:
         for card in self.deck:
             json["deck"].append(card)
         return json
-
