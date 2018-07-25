@@ -137,7 +137,7 @@ def add_take_parser(subparsers, parent_parser):
         'take',
         parents=[parent_parser],
         description='Takes turn at evolution stage',
-        help='Takes turn at evolution stage')
+        help='take [id] [creature id] [card id] - plays selected card on selected creature. Creature 0 for new creature.}')
     parser.add_argument(
         'id',
         type=int,
