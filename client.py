@@ -100,7 +100,7 @@ def room_update(args):
             print(message)
             return
         elif(status == "playing"):
-            print("Game begins!")
+            print("Game begins! ID: {}".format(json["id"]))
             args.id = json["id"]
             game_update(args)
 
