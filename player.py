@@ -26,6 +26,17 @@ class Player:
             for creature in json["creatures"]:
                 self.creatures.append(Creature(creature))
 
+    def add_ability(self, creature, card):
+        for c in self.cards:
+            if (c == card):
+                for cr in self.creatures:
+                    if (cr.id == creature):
+                        if (cr.add_ability(card)):
+                            self.cards.remove(card)
+                            return True
+                        return False
+                    return False
+        return False
 
     def add_creature(self, card):
         for c in self.cards:
