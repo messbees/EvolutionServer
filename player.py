@@ -28,9 +28,14 @@ class Player:
 
 
     def add_creature(self, card):
-        self.creature_index = self.creature_index + 1
-        creature = Creature(self.name, card, self.creature_index)
-        self.creatures.append(creature)
+        for c in self.cards:
+            if (c == card):
+                self.creature_index = self.creature_index + 1
+                creature = Creature('init', name=self.name, card=card, id=self.creature_index)
+                self.creatures.append(creature)
+                self.cards.remove(card)
+                return True
+        return False
 
     def json(self):
         json = {}
