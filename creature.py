@@ -12,7 +12,7 @@ class Creature:
             self.food = 0
             self.fat = 0
             self.abilities = []
-            serf.owner = owner
+            self.owner = owner
         if (mode == 'json'):
             json = kwargs["json"]
             self.id == json["id"]
