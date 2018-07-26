@@ -12,31 +12,18 @@ class Ability:
     def apply(self):
         self.action()
 
+cards = {
+    "1": Ability("Carnivorous", "This allows you to eat other creatures", "abilty", 1),
+    "2": Ability("Fat Tissue", "This allows you to store extra food for next turns", "passive", 2),
+    "3": Ability("Running", "This allows you to run away from attacker with 50% chanse", 3),
+    "4": Ability("Poisonous", "This kills an attacker after he'll try to kill you", 4)
+}
 
 def initialyze():
     abilities = []
-    abilities.append(Ability("Predator", "This allows you to eat other creatures", "abilty", 1))
-    abilities.append(Ability("Fat", "This allows you to store extra food for next turns", "passive", 2))
-    abilities.append(Ability("Predator", "This allows you to eat other creatures", "abilty", 1))
-    abilities.append(Ability("Fat", "This allows you to store extra food for next turns", "passive", 2))
-    abilities.append(Ability("Predator", "This allows you to eat other creatures", "abilty", 1))
-    abilities.append(Ability("Fat", "This allows you to store extra food for next turns", "passive", 2))
-    abilities.append(Ability("Dummy", "This is dummy ability number 1", "passive", 3))
-    abilities.append(Ability("Dummy", "This is dummy ability number 2", "passive", 4))
-    abilities.append(Ability("Dummy", "This is dummy ability number 3", "passive", 5))
-    abilities.append(Ability("Dummy", "This is dummy ability number 4", "passive", 6))
-    abilities.append(Ability("Dummy", "This is dummy ability number 5", "passive", 7))
-    abilities.append(Ability("Dummy", "This is dummy ability number 6", "passive", 8))
-    abilities.append(Ability("Dummy", "This is dummy ability number 7", "passive", 9))
-    abilities.append(Ability("Dummy", "This is dummy ability number 8", "passive", 10))
-    abilities.append(Ability("Dummy", "This is dummy ability number 1", "passive", 3))
-    abilities.append(Ability("Dummy", "This is dummy ability number 2", "passive", 4))
-    abilities.append(Ability("Dummy", "This is dummy ability number 3", "passive", 5))
-    abilities.append(Ability("Dummy", "This is dummy ability number 4", "passive", 6))
-    abilities.append(Ability("Dummy", "This is dummy ability number 5", "passive", 7))
-    abilities.append(Ability("Dummy", "This is dummy ability number 6", "passive", 8))
-    abilities.append(Ability("Dummy", "This is dummy ability number 7", "passive", 9))
-    abilities.append(Ability("Dummy", "This is dummy ability number 8", "passive", 10))
+    for i in range(0..len(cards)):
+        for j in range(0..5):
+            abilities.append(cards[str(i)])
     a = []
     for ability in abilities:
         a.append(ability.id)
