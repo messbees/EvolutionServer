@@ -169,7 +169,10 @@ def game_show(args):
     if not (os.path.isfile("saved_games/{}.json".format(id))):
         print("No such game found.")
         return
-    print("Coming soon...")
+    f = open("saved_games/{}.json".format(id))
+    game = json.loads(f.read())
+    print("Your hand:")
+    print(game["players"][nick]["deck"])
 
 def take(args):
     id = args.id
