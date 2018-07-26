@@ -172,7 +172,9 @@ def game_show(args):
     f = open("saved_games/{}.json".format(id))
     game = json.loads(f.read())
     print("Your hand:")
-    print(game["players"][nick]["deck"])
+    for player in game["players"]:
+        if (player["name"] == nick):
+            print(player["cards"])
 
 def take(args):
     id = args.id
