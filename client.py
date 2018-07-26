@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
+import ability
 import requests
 import logging
 import argparse_helper
@@ -171,10 +172,31 @@ def game_show(args):
         return
     f = open("saved_games/{}.json".format(id))
     game = json.loads(f.read())
-    print("Your hand:")
+    name = game["name"]
+    id = game["id"]
+    turn = game["turn"]
+    round = game["round"]
+    stage = game["stage"]
+    dice = game["dice"]
+    food = game["food"]
+    players = []
     for player in game["players"]:
+        players.append(player)
+    print("Game '{}' (ID: {}). Current round: {}, stage: {}.".format(name, id, round, stage))
+    if (turn == nick):
+        print("It's YOUR turn!")
+    else:
+        print("It's {}'s turn.".format(turn))
+    print("Your hand:")
+    for player in players:
         if (player["name"] == nick):
-            print(player["cards"])
+            cards = ""
+            for card in player["cards"]:
+                cards += '[{}]: {}, '.format(card, get_card_name(card))
+            if (args.creatures):
+                print("Your creatures: ")
+                for creature in player["creatures"]:
+                    print(get_creature_text(creature))
 
 def take(args):
     id = args.id
@@ -196,6 +218,19 @@ def take(args):
     elif (code == 400):
         print("Error while playing card.")
 
+def get_creature_text(creature):
+    msg = '[Creature {}] Hunger:{}, Food:{}, Fat:{}. \n'.format(creature["id"], creature["hunger"], creature["food"], creature["fat"])
+    msg +=  '[Creature {}] Abilities: '
+    cards = 0
+    for card in creature["cards"]:
+        cards++
+    msg += '{} cards'.format(cards)
+    for card in creature["cards"]:
+        msg += ', {}'.format(get_card_name(card))
+    return msg
+
+def get_card_name(card):
+    return get_ability(card).name
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:
