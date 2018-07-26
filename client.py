@@ -25,24 +25,24 @@ def get(json):
 def room_new(args):
     name = args.name
     admin = nick
-    json = {}
-    json["action"] = "ROOM_NEW"
-    json["room_new"] = {}
-    data = json["room_new"]
+    request = {}
+    request["action"] = "ROOM_NEW"
+    request["room_new"] = {}
+    data = request["room_new"]
     data["game"] = name
     data["player"] = admin
     print('Creating room...')
-    response = post(json)
+    response = post(request)
     code = response.status_code
     if (code == 200):
         print("Room created!")
-        json = {}
-        json["action"] = "ROOM_CONNECT"
-        json["room_connect"] = {}
-        data = json["room_connect"]
+        request = {}
+        request["action"] = "ROOM_CONNECT"
+        request["room_connect"] = {}
+        data = request["room_connect"]
         data["game"] = name
         data["player"] = admin
-        response = post(json)
+        response = post(request)
         code = response.status_code
         if (code == 200):
             print("You have joined this room.")
@@ -54,14 +54,14 @@ def room_new(args):
 def room_connect(args):
     name = args.name
     player = nick
-    json = {}
-    json["action"] = "ROOM_CONNECT"
-    json["room_connect"] = {}
-    data = json["room_connect"]
+    request = {}
+    request["action"] = "ROOM_CONNECT"
+    request["room_connect"] = {}
+    data = request["room_connect"]
     data["game"] = name
     data["player"] = player
     print('Connecting to room...')
-    response = post(json)
+    response = post(request)
     code = response.status_code
     if (code == 200):
         print("{} have joined this room.".format(player))
@@ -75,14 +75,14 @@ def room_connect(args):
 def room_update(args):
     name = args.name
     player = nick
-    json = {}
-    json["action"] = "ROOM_UPDATE"
-    json["room_update"] = {}
-    data = json["room_update"]
+    request = {}
+    request["action"] = "ROOM_UPDATE"
+    request["room_update"] = {}
+    data = request["room_update"]
     data["game"] = name
     data["player"] = player
     print('Updating room...')
-    response = get(json)
+    response = get(request)
     code = response.status_code
     if (code == 404):
         print('No room with such name.')
@@ -107,14 +107,14 @@ def room_update(args):
 def room_start(args):
     name = args.name
     player = nick
-    json = {}
-    json["action"] = "ROOM_START"
-    json["room_start"] = {}
-    data = json["room_start"]
+    request = {}
+    request["action"] = "ROOM_START"
+    request["room_start"] = {}
+    data = request["room_start"]
     data["game"] = name
     data["player"] = player
     print('Beginning the game...')
-    response = post(json)
+    response = post(request)
     code = response.status_code
     if (code == 200):
         room_update(args)
@@ -130,29 +130,29 @@ def room_start(args):
 def game_update(args):
     id = args.id
     player = nick
-    json = {}
-    json["action"] = "GAME_UPDATE"
-    json["update"] = {}
-    data = json["update"]
+    request = {}
+    request["action"] = "GAME_UPDATE"
+    request["update"] = {}
+    data = request["update"]
     data["game"] = id
     data["player"] = player
     print("Updating the game...")
-    response = get(json)
+    response = get(request)
     code = response.status_code
     if (code == 200):
-        j = response.json()
-        name = j["name"]
-        id = j["id"]
-        turn = j["turn"]
-        round = j["round"]
-        stage = j["stage"]
-        dice = j["dice"]
-        food = j["food"]
+        game = response.json()
+        name = game["name"]
+        id = game["id"]
+        turn = game["turn"]
+        round = game["round"]
+        stage = game["stage"]
+        dice = game["dice"]
+        food = game["food"]
         players = []
-        for player in j["players"]:
+        for player in game["players"]:
             players.append(player)
         with open('saved_games/{}.json'.format(id), 'w') as outfile:
-            json.dump(j, outfile)
+            json.dump(game, outfile)
         print("Game '{}' (ID: {}). Current round: {}, stage: {}.".format(name, id, round, stage))
         if (turn == nick):
             print("It's YOUR turn!")
@@ -179,15 +179,15 @@ def take(args):
     creature = args.creature
     card = args.card
     player = nick
-    json = {}
-    json["action"] = "TAKE"
-    json["take"] = {}
-    data = json["take"]
+    request = {}
+    request["action"] = "TAKE"
+    request["take"] = {}
+    data = request["take"]
     data["game"] = id
     data["player"] = player
     data["creature"] = creature
     data["card"] = card
-    response = post(json)
+    response = post(request)
     code = response.status_code
     if (code == 200):
         print("Success!")
