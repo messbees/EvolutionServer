@@ -42,7 +42,7 @@ class Player:
         for c in self.cards:
             if (c == card):
                 self.creature_index = self.creature_index + 1
-                creature = Creature('init', name=self.name, card=card, id=self.creature_index)
+                creature = Creature('init', owner=self.name, card=card, id=self.creature_index)
                 self.creatures.append(creature)
                 self.cards.remove(card)
                 return True
