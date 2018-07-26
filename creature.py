@@ -6,7 +6,7 @@ class Creature:
             card = kwargs["card"]
             owner = kwargs["owner"]
             id = kwargs["id"]
-            seld.id = id
+            self.id = id
             self.card = card
             self.hunger = 1
             self.food = 0
