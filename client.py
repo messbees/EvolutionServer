@@ -140,19 +140,19 @@ def game_update(args):
     response = get(json)
     code = response.status_code
     if (code == 200):
-        json = response.json()
-        name = json["name"]
-        id = json["id"]
-        turn = json["turn"]
-        round = json["round"]
-        stage = json["stage"]
-        dice = json["dice"]
-        food = json["food"]
+        j = response.json()
+        name = j["name"]
+        id = j["id"]
+        turn = j["turn"]
+        round = j["round"]
+        stage = j["stage"]
+        dice = j["dice"]
+        food = j["food"]
         players = []
-        for player in json["players"]:
+        for player in j["players"]:
             players.append(player)
         with open('saved_games/{}.json'.format(id), 'w') as outfile:
-            json.dump(json, outfile)
+            json.dump(j, outfile)
         print("Game '{}' (ID: {}). Current round: {}, stage: {}.".format(name, id, round, stage))
         if (turn == nick):
             print("It's YOUR turn!")
