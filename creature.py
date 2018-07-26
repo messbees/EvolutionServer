@@ -1,4 +1,3 @@
-import player
 import ability
 
 class Creature:
