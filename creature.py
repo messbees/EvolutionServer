@@ -26,7 +26,11 @@ class Creature:
             serf.owner = json["owner"]
 
     def add_ability(self, card):
+        for ability in self.abilities:
+            if (card == ability):
+                return False
         self.abilities.append(card)
+        return True
 
     def json(self):
         json = {}
