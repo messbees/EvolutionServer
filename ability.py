@@ -28,3 +28,6 @@ def initialyze():
     for ability in abilities:
         a.append(ability.id)
     return a
+
+def get_ability(id):
+    return cards[id]
