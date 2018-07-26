@@ -22,7 +22,7 @@ cards = {
 
 def initialyze():
     abilities = []
-    for i in range(1..len(cards)+1):
+    for i in range(len(cards)):
         for j in range(5):
             abilities.append(cards[str(i)])
     a = []
