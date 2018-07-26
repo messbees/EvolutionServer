@@ -113,18 +113,41 @@ class Server:
             return 'WRONG_ID'
 
     def do_evolution(self, game, player, creature, card):
-        LOGGER.info("Player '{}' in game '{}' is trying to play card {} on creature {}.".format(player, game, card, creature))
-        if (game["stage"] == "evolution"):
-            for p in game["players"]:
-                if (p["name"] == player):
-                    if not (game["turn"] == player):
-                        LOGGER.warn("It is not {}'s turn!".format(player))
-                        return 'NOT_YOUR_TURN'
-
-                    #if (creature == 999):
-            return 'WRONG_USER'
+        if (creature == 0):
+            LOGGER.info("Player '{}' in game '{}' is trying to spawn new creature from card {}.".format(player, game, card, creature))
         else:
+            LOGGER.info("Player '{}' in game '{}' is trying to play card {} on creature {}.".format(player, game, card, creature))
+        if not (game.stage == "evolution"):
+            LOGGER.warn("Wrong stage.")
             return 'WRONG_STAGE'
+        for p in game.players:
+            if (p.name == player):
+                if not (game.turn == player):
+                    LOGGER.warn("It is not {}'s turn!".format(player))
+                    return 'NOT_YOUR_TURN'
+                for c in p.cards:
+                    if (c == card):
+                        if (creature == 0):
+                            if (p.add_creature(card)):
+                                LOGGER.info("Creature successfully spawned!")
+                                game.save()
+                                return "CREATED"
+                        else:
+                            for cr in p.creatures:
+                                if (creature == cr.id):
+                                    if (p.add_ability(creature, card)):
+                                        LOGGER.info("Ability successfully added!")
+                                        game.save()
+                                        return "ADDED"
+                                    else:
+                                        LOGGER.error("Something went wrong...")
+                                        return "NOT_ADDED"
+                            LOGGER.error("Wrong creature!")
+                            return "WRONG_CREATURE"
+                LOGGER.error("No such card!")
+                return "NO_CARD"
+        LOGGER.warn("Access denied!")
+        return 'WRONG_USER'
 
 game_server = Server()
 
@@ -265,31 +288,36 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
 
 
-        if (action == "EVOLUTION"):
-            game = data["evolution"]["game_id"]
-            player = data["evolution"]["player"]
-            creature = data["evolution"]["creature"]
-            card = data["evolution"]["card"]
-            g = game_server.load_game(game)
-            if (g == None):
+        if (action == "TAKE"):
+            id = data["take"]["game"]
+            player = data["take"]["player"]
+            creature = data["take"]["creature"]
+            card = data["take"]["card"]
+            game = game_server.load_game(game)
+            if not (game):
                 self.send_response(404)
                 self.end_headers()
                 return
-            status = game_server.do_evolution(g, player, creature, card)
+            status = game_server.do_evolution(game, player, creature, card)
 
             if (status == 'WRONG_USER'):
                 self.send_response(403)
                 self.end_headers()
                 return
-            for p in game.players:
-                if (p.name == player):
-                    player = p
-            if (game_server.do_evolution(game, player, creature, card)):
+            elif (status == 'WRONG_STAGE'):
+                self.send_response(406)
+                self.end_headers()
+            elif (status == "CREATED"):
                 self.send_response(200)
                 self.end_headers()
-                return
-            self.send_response(403)
-            self.end_headers()
+            elif (status == "ADDED"):
+                self.send_response(200)
+                self.end_headers()
+            else:
+                self.send_response(400)
+                self.end_headers()
+
+
 
         if (action == "TEST"):
             f = open('rooms/null.json')
