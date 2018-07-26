@@ -152,5 +152,5 @@ def add_take_parser(subparsers, parent_parser):
         help='Card ID')
     parser.add_argument(
         '-c', '--creatures',
-        action='creatures',
+        action="store_true",
         help='Show creatures')
