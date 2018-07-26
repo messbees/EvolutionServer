@@ -171,6 +171,27 @@ def game_show(args):
         return
     print("Coming soon...")
 
+def take(args):
+    id = args.id
+    creature = args.creature
+    card = args.card
+    player = nick
+    json = {}
+    json["action"] = "TAKE"
+    json["take"] = {}
+    data = json["take"]
+    data["game"] = id
+    data["player"] = player
+    data["creature"] = creature
+    data["card"] = card
+    response = post(json)
+    code = response.status_code
+    if (code == 200):
+        print("Success!")
+    elif (code == 400):
+        print("Error while playing card.")
+
+
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:
 		args = sys.argv[1:]
@@ -198,6 +219,8 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 		game_update(args)
 	elif args.command == 'show':
 		game_show(args)
+    elif args.command == 'take':
+		take(args)
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))
 
