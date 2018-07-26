@@ -41,5 +41,5 @@ class Creature:
         json["abilities"] = {}
         for ability in self.abilities:
             json["abilities"].append(ability)
-        json["card"] = card.id
+        json["card"] = self.card
         return json
