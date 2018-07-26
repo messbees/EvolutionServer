@@ -13,6 +13,7 @@ class Ability:
         self.action()
 
 cards = {
+    "0": Ability("Swimming", "This makes you exist only in water. Also applied on carnivorous...", "passive", 0)
     "1": Ability("Carnivorous", "This allows you to eat other creatures", "abilty", 1),
     "2": Ability("Fat Tissue", "This allows you to store extra food for next turns", "passive", 2),
     "3": Ability("Running", "This allows you to run away from attacker with 50% chanse", "defence", 3),
