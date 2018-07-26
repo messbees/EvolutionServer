@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
-import ability
+from ability import get_ability
 import requests
 import logging
 import argparse_helper
