@@ -1,4 +1,4 @@
-import creature
+from creature import Creature
 import ability
 
 class Player:
