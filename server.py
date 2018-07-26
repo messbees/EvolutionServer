@@ -20,10 +20,10 @@ class Server:
     settings = json.loads(f.read())
     nick = settings["nick"]
     version = settings["version"]
-    self.games = []
 
     def __init__(self):
         # why can't i leave it empty?
+        self.games = []
         LOGGER.info("Server initiated.")
 
     def load_game(self, id):
