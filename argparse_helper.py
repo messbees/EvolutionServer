@@ -115,7 +115,7 @@ def add_update_parser(subparsers, parent_parser):
         'update',
         parents=[parent_parser],
         description='Updates current state of the game',
-        help='Updates current state of the game')
+        help='Updates current state of the game with specified ID')
     parser.add_argument(
         'id',
         type=int,
@@ -125,7 +125,7 @@ def add_show_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
         'show',
         parents=[parent_parser],
-        description='Shows game desk',
+        description='Shows game desk from local storage',
         help='Shows game desk')
     parser.add_argument(
         'id',
@@ -150,3 +150,7 @@ def add_take_parser(subparsers, parent_parser):
         'card',
         type=int,
         help='Card ID')
+    parser.add_argument(
+        '-c', '--creatures',
+        action='creatures',
+        help='Show creatures')
