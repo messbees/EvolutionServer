@@ -223,7 +223,7 @@ def get_creature_text(creature):
     msg +=  '[Creature {}] Abilities: '
     cards = 0
     for card in creature["cards"]:
-        cards++
+        cards = cards + 1
     msg += '{} cards'.format(cards)
     for card in creature["cards"]:
         msg += ', {}'.format(get_card_name(card))
