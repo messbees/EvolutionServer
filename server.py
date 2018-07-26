@@ -293,7 +293,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             player = data["take"]["player"]
             creature = data["take"]["creature"]
             card = data["take"]["card"]
-            game = game_server.load_game(game)
+            game = game_server.load_game(id)
             if not (game):
                 self.send_response(404)
                 self.end_headers()
