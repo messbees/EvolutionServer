@@ -222,7 +222,7 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 		game_update(args)
 	elif args.command == 'show':
 		game_show(args)
- 	elif args.command == 'take':
+	elif args.command == 'take':
 		take(args)
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))
