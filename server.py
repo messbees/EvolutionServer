@@ -114,9 +114,9 @@ class Server:
 
     def do_evolution(self, game, player, creature, card):
         if (creature == 0):
-            LOGGER.info("Player '{}' in game '{}' is trying to spawn new creature from card {}.".format(player, game, card, creature))
+            LOGGER.info("Player '{}' in game '{}' is trying to spawn new creature from card '{}'.".format(player, game, get_ability(card).name))
         else:
-            LOGGER.info("Player '{}' in game '{}' is trying to play card {} on creature {}.".format(player, game, card, creature))
+            LOGGER.info("Player '{}' in game '{}' is trying to play card '{}' on creature {}.".format(player, game, get_ability(card).name, creature))
         if not (game.stage == "evolution"):
             LOGGER.warn("Wrong stage.")
             return 'WRONG_STAGE'
@@ -130,6 +130,7 @@ class Server:
                         if (creature == 0):
                             if (p.add_creature(card)):
                                 LOGGER.info("Creature successfully spawned!")
+                                game.turn = p.next
                                 game.save()
                                 return "CREATED"
                         else:
@@ -137,6 +138,7 @@ class Server:
                                 if (creature == cr.id):
                                     if (p.add_ability(creature, card)):
                                         LOGGER.info("Ability successfully added!")
+                                        game.turn = p.next
                                         game.save()
                                         return "ADDED"
                                     else:
