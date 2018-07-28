@@ -235,7 +235,7 @@ def take_pass(args):
         print("You passes.")
     elif (code == 400):
         print("It is not right time to pass...")
-    elis(code == 404):
+    elif(code == 404):
         print("There is no such game")
 
 def get_creature_text(creature):
