@@ -1,18 +1,19 @@
 ![logo](/evolution_logo.png)
 ## Evolution Game Server
-version 0.1.1
+version 0.2
 
 ## Changelog
-- fix room creation, joining and update
-- fix (actually add completely new) game creation and update
-- add (very raw) evolution stage
-- add beautiful logger to a server
-- add CLI client
+- add game loading to client's local storage
+- add displaying current state of game
+- finish evolution stage
+- add turns changing
 - lots of code reworking
 - add gitignore
 
 ## Bugs
 Client:
-- lots of bugs if client gets wrong response
+- lots of errors if client gets wrong response
+
 Server:
-- lots of bugs when server gets requests not from client  
+- lots of errors when server gets requests not from client  
+- errors when input request data contains non-latin symbols
