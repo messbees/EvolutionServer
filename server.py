@@ -151,6 +151,22 @@ class Server:
         LOGGER.warn("Access denied!")
         return 'WRONG_USER'
 
+    def do_pass(self, game, player):
+        LOGGER.info("Player '{}' in game '{}' is trying to pass.".format(player, game))
+        if not (game.stage == "evolution"):
+            LOGGER.warn("Wrong stage.")
+            return 'WRONG_STAGE'
+        for p in game.players:
+            if (p.name == player):
+                if not (game.turn == player):
+                    LOGGER.warn("It is not {}'s turn!".format(player))
+                    return 'NOT_YOUR_TURN'
+                game.turn = p.next
+                game.save()
+                return True
+        LOGGER.warn("Access denied!")
+        return 'WRONG_USER'
+
 game_server = Server()
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -319,6 +335,21 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_response(400)
                 self.end_headers()
 
+        if (action == 'PASS'):
+            id = data["game"]
+            player = data["player"]
+            game = game_server.load_game(id)
+            if not (game):
+                self.send_response(404)
+                self.end_headers()
+                return
+            status = game_server.do_pass(game, player)
+            if not (status == True):
+                senf.send_response(400)
+                self.end_headers()
+                return
+            self.send_response(200)
+            self.end_headers()
 
 
         if (action == "TEST"):
