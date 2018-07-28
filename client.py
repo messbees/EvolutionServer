@@ -233,7 +233,7 @@ def take_pass(args):
     code = response.status_code
     if (code == 200):
         print("You passes.")
-    elif (code = 400):
+    elif (code == 400):
         print("It is not right time to pass...")
     elis(code == 404):
         print("There is no such game")
