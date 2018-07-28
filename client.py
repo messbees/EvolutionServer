@@ -281,7 +281,7 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 		game_show(args)
 	elif args.command == 'take':
 		take(args)
-    elif args.command == 'pass':
+	elif args.command == 'pass':
 		take_pass(args)
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))
