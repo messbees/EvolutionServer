@@ -64,6 +64,7 @@ def create_parser(prog_name):
     add_update_parser(subparsers, parent_parser)
     add_show_parser(subparsers, parent_parser)
     add_take_parser(subparsers, parent_parser)
+    add_pass_parser(subparsers, parent_parser)
     return parser
 
 def add_room_new_parser(subparsers, parent_parser):
@@ -154,3 +155,14 @@ def add_take_parser(subparsers, parent_parser):
         '-c', '--creatures',
         action="store_true",
         help='Show creatures')
+
+def add_pass_parser(subparsers, parent_parser):
+    parser = subparsers.add_parser(
+        'pass',
+        parents=[parent_parser],
+        description='Passes your turn.',
+        help='Passes your turn')
+    parser.add_argument(
+        'id',
+        type=int,
+        help='Game ID')
