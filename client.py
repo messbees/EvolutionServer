@@ -217,6 +217,26 @@ def take(args):
         print("Success!")
     elif (code == 400):
         print("Error while playing card.")
+    elif (code == 404):
+        print("There is no such game.")
+
+def take_pass(args):
+    id = arks.id
+    player = nick
+    request = {}
+    request["action"] = "PASS"
+    request["data"] = {}
+    data = request["data"]
+    data["game"] = id
+    data["player"] = player
+    response = post(request)
+    code = response.status_code
+    if (code == 200):
+        print("You passes.")
+    elif (code = 400):
+        print("It is not right time to pass...")
+    elis(code == 404):
+        print("There is no such game")
 
 def get_creature_text(creature):
     msg = '[Creature {}] Hunger:{}, Food:{}, Fat:{}. \n'.format(creature["id"], creature["hunger"], creature["food"], creature["fat"])
@@ -261,6 +281,8 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 		game_show(args)
 	elif args.command == 'take':
 		take(args)
+    elif args.command == 'pass':
+		take_pass(args)
 	else:
 		raise EvolutionClientException("invalid command: {}".format(args.command))
 
