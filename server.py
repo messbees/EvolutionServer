@@ -162,11 +162,11 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             return
         action = data["action"]
-
+        data = data["data"]
         # calls after trying to fetch room state
         if (action == "ROOM_UPDATE"):
-            game = data["room_update"]["game"]
-            player = data["room_update"]["player"]
+            game = data["game"]
+            player = data["player"]
             LOGGER.info("Player '{}' is trying to update state of the room '{}'.".format(player, game))
             if not (os.path.isfile("rooms/{}.json".format(game))):
                 LOGGER.warn("There is no such room.")
@@ -189,8 +189,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         # calls after trying to fetch game state
         if (action == "GAME_UPDATE"):
-            id = data["update"]["game"]
-            player = data["update"]["player"]
+            id = data["game"]
+            player = data["player"]
             LOGGER.info("Player '{}' is trying to update state of the game '{}'.".format(player, id))
             game = game_server.load_game(id)
             if not (game):
@@ -236,11 +236,11 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             return
         action = data["action"]
-
+        data = data["data"]
         # calls after creating new room
         if (action == "ROOM_NEW"):
-            game = data["room_new"]["game"]
-            player = data["room_new"]["player"]
+            game = data["game"]
+            player = data["player"]
             if (game_server.new_room(game, player)):
                 self.send_response(200)
                 self.end_headers()
@@ -250,8 +250,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         # calls after creating new room, when connecting to existing room, or while updating current room
         if (action == "ROOM_CONNECT"):
-            game = data["room_connect"]["game"]
-            player = data["room_connect"]["player"]
+            game = data["game"]
+            player = data["player"]
             status = game_server.join_room(game, player)
             if (status == 'WRONG_USER'):
                 self.send_response(409)
@@ -268,8 +268,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         # calls after beginning the game in room by room admin
         if (action == "ROOM_START"):
-            game = data["room_start"]["game"]
-            admin = data["room_start"]["player"]
+            game = data["game"]
+            admin = data["player"]
             status = game_server.begin_game(game, admin)
             if (status == 'WRONG_ROOM'):
                 self.send_response(404)
@@ -289,10 +289,10 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 
         if (action == "TAKE"):
-            id = data["take"]["game"]
-            player = data["take"]["player"]
-            creature = data["take"]["creature"]
-            card = data["take"]["card"]
+            id = data["game"]
+            player = data["player"]
+            creature = data["creature"]
+            card = data["card"]
             game = game_server.load_game(id)
             if not (game):
                 self.send_response(404)

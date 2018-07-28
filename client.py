@@ -28,8 +28,8 @@ def room_new(args):
     admin = nick
     request = {}
     request["action"] = "ROOM_NEW"
-    request["room_new"] = {}
-    data = request["room_new"]
+    request["data"] = {}
+    data = request["data"]
     data["game"] = name
     data["player"] = admin
     print('Creating room...')
@@ -39,8 +39,8 @@ def room_new(args):
         print("Room created!")
         request = {}
         request["action"] = "ROOM_CONNECT"
-        request["room_connect"] = {}
-        data = request["room_connect"]
+        request["data"] = {}
+        data = request["data"]
         data["game"] = name
         data["player"] = admin
         response = post(request)
@@ -57,8 +57,8 @@ def room_connect(args):
     player = nick
     request = {}
     request["action"] = "ROOM_CONNECT"
-    request["room_connect"] = {}
-    data = request["room_connect"]
+    request["data"] = {}
+    data = request["data"]
     data["game"] = name
     data["player"] = player
     print('Connecting to room...')
@@ -78,8 +78,8 @@ def room_update(args):
     player = nick
     request = {}
     request["action"] = "ROOM_UPDATE"
-    request["room_update"] = {}
-    data = request["room_update"]
+    request["data"] = {}
+    data = request["data"]
     data["game"] = name
     data["player"] = player
     print('Updating room...')
@@ -110,8 +110,8 @@ def room_start(args):
     player = nick
     request = {}
     request["action"] = "ROOM_START"
-    request["room_start"] = {}
-    data = request["room_start"]
+    request["data"] = {}
+    data = request["data"]
     data["game"] = name
     data["player"] = player
     print('Beginning the game...')
@@ -133,8 +133,8 @@ def game_update(args):
     player = nick
     request = {}
     request["action"] = "GAME_UPDATE"
-    request["update"] = {}
-    data = request["update"]
+    request["data"] = {}
+    data = request["data"]
     data["game"] = id
     data["player"] = player
     print("Updating the game...")
@@ -205,8 +205,8 @@ def take(args):
     player = nick
     request = {}
     request["action"] = "TAKE"
-    request["take"] = {}
-    data = request["take"]
+    request["data"] = {}
+    data = request["data"]
     data["game"] = id
     data["player"] = player
     data["creature"] = creature
