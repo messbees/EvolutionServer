@@ -23,6 +23,7 @@ def post(json):
         return response
     except requests.exceptions.ConnectionError:
         print("Server didn't send response and ended connection.")
+        return
 
 def get(json):
     json["version"] = version
