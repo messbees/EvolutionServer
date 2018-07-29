@@ -154,6 +154,7 @@ def add_take_parser(subparsers, parent_parser):
     parser.add_argument(
         '-c', '--creatures',
         dest="creatures",
+        default=False,
         action="store_true",
         help='Show creatures')
 
