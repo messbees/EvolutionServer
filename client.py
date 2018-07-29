@@ -200,6 +200,7 @@ def game_show(args):
         print("Dice: {}, food left: {}".format(game["dice"], game["food"]))
     if (args.creatures):
         print("Your creatures: ")
+        print(player["creatures"])
         for creature in player["creatures"]:
             print(get_creature_text(creature))
 
