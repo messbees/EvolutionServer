@@ -201,10 +201,17 @@ def game_show(args):
         print("Your hand:")
         for player in players:
             if (player["name"] == nick):
-                print(player["cards"])
                 cards = ""
                 for card in player["cards"]:
                     cards += '[{}]: {}, '.format(card, get_card_name(str(card)))
+                print(cards)
+                if (args.creatures):
+                    print("Your creatures: ")
+                    creatures = []
+                    for creature in player["creatures"]:
+                        creatures.append(creature)
+                    for creature in creatures:
+                        print(get_creature_text(creature))
     elif (game["stage"] == 'survival'):
         print("Dice: {}, food left: {}".format(game["dice"], game["food"]))
     if (args.creatures):
@@ -260,6 +267,7 @@ def take_pass(args):
         print("There is no such game")
 
 def get_creature_text(creature):
+    print("forming text!!!! input - {}".format(creature))
     msg = '[Creature {}] Hunger:{}, Food:{}, Fat:{}. \n'.format(creature["id"], creature["hunger"], creature["food"], creature["fat"])
     msg +=  '[Creature {}] Abilities: '
     cards = 0
