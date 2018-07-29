@@ -208,10 +208,13 @@ def game_show(args):
     elif (game["stage"] == 'survival'):
         print("Dice: {}, food left: {}".format(game["dice"], game["food"]))
     if (args.creatures):
-        print("Your creatures: ")
-        print(player["creatures"])
-        for creature in player["creatures"]:
-            print(get_creature_text(creature))
+        for player in players:
+            if (player["name"] == nick):
+                print("Your creatures: ")
+                print(player["creatures"])
+                for creature in player["creatures"]:
+                    print(creature)
+                    print(get_creature_text(creature))
 
 
 def take(args):
