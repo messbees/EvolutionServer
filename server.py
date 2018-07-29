@@ -167,7 +167,7 @@ class Server:
                 if not (game.turn == player):
                     LOGGER.warn("It is not {}'s turn!".format(player))
                     return 'NOT_YOUR_TURN'
-                if (p.finished == true):
+                if (p.finished == True):
                     LOGGER.warn("{} is already finished!".format(player))
                     return 'ALREADY'
                 p.finished = True
