@@ -54,6 +54,7 @@ class Player:
         json = {}
         json["name"] = self.name
         json["creatures"] = {}
+        json["next"] = self.next
         json["finished"] = self.finished
         json["creature_index"] = self.creature_index
         for creature in self.creatures:
