@@ -194,7 +194,7 @@ def game_show(args):
             if (player["name"] == nick):
                 cards = ""
                 for card in player["cards"]:
-                    cards += '[{}]: {}, '.format(card, get_card_name(str(card))
+                    cards += '[{}]: {}, '.format(card, get_card_name(str(card)))
     elif (game["stage"] == 'survival'):
         print("Dice: {}, food left: {}".format(game["dice"], game["food"]))
     if (args.creatures):
