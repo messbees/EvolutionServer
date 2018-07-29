@@ -21,7 +21,7 @@ class Game:
             self.turn = first.name
             self.first = self.turn
             for index in (0, len(players)-2):
-                players[index].next = players[index+1]
+                players[index].next = players[index+1].name
             players[len(players)-1].next = first
             self.players = players
             self.dice = 0
