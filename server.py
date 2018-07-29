@@ -130,7 +130,10 @@ class Server:
                         if (creature == 0):
                             if (p.add_creature(card)):
                                 LOGGER.info("Creature successfully spawned!")
-                                game.turn = p.next
+                                for (pp in game.players):
+                                    if (pp.name = p.next):
+                                        if (pp.finished):
+                                            game.turn = pp.next
                                 game.save()
                                 return "CREATED"
                         else:
@@ -161,8 +164,23 @@ class Server:
                 if not (game.turn == player):
                     LOGGER.warn("It is not {}'s turn!".format(player))
                     return 'NOT_YOUR_TURN'
-                game.turn = p.next
-                game.save()
+                if (p.finished == true):
+                    LOGGER.warn("{} is already finished!".format(player))
+                    return 'ALREADY'
+                p.finished = True
+                # Checking if next player also did pass:
+                for (pp in game.players):
+                    if (pp.name = p.next):
+                        if (pp.finished):
+                            game.turn = pp.next
+                # Checking if there are any active players
+                for (pp in game.players):
+                    if pp.finished == False
+                    game.save()
+                    return True
+
+                # Changing stage to survival
+                game.to_survival()
                 return True
         LOGGER.warn("Access denied!")
         return 'WRONG_USER'
