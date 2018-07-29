@@ -38,7 +38,7 @@ class Creature:
         json["food"] = self.food
         json["fat"] = self.fat
         json["owner"] = self.owner
-        json["abilities"] = {}
+        json["abilities"] = []
         for ability in self.abilities:
             json["abilities"].append(ability)
         json["card"] = self.card
