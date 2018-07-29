@@ -21,7 +21,7 @@ def post(json):
     try:
         response = requests.post('http://159.100.247.47:8888', json=json)
         return response
-    except ConnectionError:
+    except requests.exceptions.ConnectionError:
         print("Server didn't send response and ended connection.")
 
 def get(json):
