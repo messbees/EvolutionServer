@@ -123,7 +123,7 @@ class Server:
             return 'WRONG_STAGE'
         for p in game.players:
             if (p.name == player):
-                for c in player.creations:
+                for c in p.creations:
                     print(c.json())
                 if not (game.turn == player):
                     LOGGER.warn("It is not {}'s turn!".format(player))
