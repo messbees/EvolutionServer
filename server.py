@@ -141,7 +141,10 @@ class Server:
                                 if (creature == cr.id):
                                     if (p.add_ability(creature, card)):
                                         LOGGER.info("Ability successfully added!")
-                                        game.turn = p.next
+                                        for pp in game.players:
+                                            if (pp.name == p.next):
+                                                if (pp.finished):
+                                                    game.turn = pp.next
                                         game.save()
                                         return "ADDED"
                                     else:
@@ -176,11 +179,11 @@ class Server:
                 # Checking if there are any active players
                 for pp in game.players:
                     if (pp.finished == False):
-	            	game.save()
-
-                    	return True
-
+                        game.save()
+                        LOGGER.info("Player passed.")
+                        return True
                 # Changing stage to survival
+                LOGGER.info("All players passed. Changing to survival stage!")
                 game.to_survival()
                 return True
         LOGGER.warn("Access denied!")
