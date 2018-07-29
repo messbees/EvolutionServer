@@ -214,6 +214,8 @@ def game_show(args):
                 print(player["creatures"])
                 for creature in player["creatures"]:
                     print(creature)
+                    print(type(player))
+                    print(type(creature))
                     print(get_creature_text(creature))
 
 
