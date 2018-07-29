@@ -19,6 +19,7 @@ class Game:
             self.stage = "evolution"
             first = random.choice(players)
             self.turn = first.name
+            self.first = self.turn
             self.players = players
             for index in (0, len(self.players)-2):
                 players[index].next = players[index+1]
@@ -33,12 +34,29 @@ class Game:
             self.round = json["round"]
             self.stage = json["stage"]
             self.turn = json["turn"]
+            self.first = json["first"]
             self.players = []
             self.dice = 0
             self.food = 0
             self.deck = json["deck"]
             for player in json["players"]:
                 self.players.append(Player('load', json=player))
+
+    def to_survival(self):
+        self.stage = "survival"
+        self.turn = self.first
+        if (len(self.players) == 2):
+            self.dice = random.randint(1, 6)
+            self.food = self.dice + 2
+        elif (len(self.players) == 3):
+            self.dice = random.randint(2, 12)
+            self.food = self.dice
+        else:
+            self.dice = random.randint(2, 12)
+            self.food = self.dice + 2
+        for player in self.players:
+            player.finished = False
+        self.save()
 
     def do_evolution(self, player, creature, card):
         if not (self.turn == player.name):
@@ -83,6 +101,7 @@ class Game:
         json = {}
         json["name"] = self.name
         json["id"] = self.id
+        json["first"] = self.first
         json["round"] = self.round
         json["stage"] = self.stage
         json["turn"] = self.turn
