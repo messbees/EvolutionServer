@@ -192,7 +192,7 @@ def game_show(args):
         print("Your hand:")
         for player in players:
             if (player["name"] == nick):
-                print("=)")
+                print(player["cards"])
                 cards = ""
                 for card in player["cards"]:
                     cards += '[{}]: {}, '.format(card, get_card_name(str(card)))
