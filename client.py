@@ -193,7 +193,7 @@ def game_show(args):
         if (player["name"] == nick):
             cards = ""
             for card in player["cards"]:
-                cards += '[{}]: {}, '.format(card, get_card_name(str(card))
+                cards += '[{}]: {}, '.format(card, get_card_name(str(card)))
             if (args.creatures):
                 print("Your creatures: ")
                 for creature in player["creatures"]:
