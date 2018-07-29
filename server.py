@@ -123,6 +123,7 @@ class Server:
             return 'WRONG_STAGE'
         for p in game.players:
             if (p.name == player):
+                print(p.creatures)
                 if not (game.turn == player):
                     LOGGER.warn("It is not {}'s turn!".format(player))
                     return 'NOT_YOUR_TURN'
