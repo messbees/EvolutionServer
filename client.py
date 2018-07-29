@@ -18,11 +18,19 @@ version = settings["version"]
 
 def post(json):
     json["version"] = version
-    return requests.post('http://159.100.247.47:8888', json=json)
+    try:
+        response = requests.post('http://159.100.247.47:8888', json=json)
+        return response
+    except ConnectionError:
+        print("Server didn't send response and ended connection.")
 
 def get(json):
     json["version"] = version
-    return requests.get('http://159.100.247.47:8888', json=json)
+    try:
+        response = requests.get('http://159.100.247.47:8888', json=json)
+        return response
+    except ConnectionError:
+        print("Server didn't send response and ended connection.")
 
 def room_new(args):
     name = args.name
