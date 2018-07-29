@@ -19,7 +19,7 @@ class Player:
             self.name = json["name"]
             self.finished = json["finished"]
             self.discard = json["discard"]
-            self.next = jaon["next"]
+            self.next = json["next"]
             self.creature_index = json["creature_index"]
             self.cards = []
             self.creatures = []
