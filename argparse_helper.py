@@ -132,6 +132,12 @@ def add_show_parser(subparsers, parent_parser):
         'id',
         type=int,
         help='Game ID')
+    parser.add_argument(
+        '-c', '--creatures',
+        dest="creatures",
+        default=False,
+        action="store_true",
+        help='Show creatures')
 
 def add_take_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
@@ -151,12 +157,6 @@ def add_take_parser(subparsers, parent_parser):
         'card',
         type=int,
         help='Card ID')
-    parser.add_argument(
-        '-c', '--creatures',
-        dest="creatures",
-        default=False,
-        action="store_true",
-        help='Show creatures')
 
 def add_pass_parser(subparsers, parent_parser):
     parser = subparsers.add_parser(
