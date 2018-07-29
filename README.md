@@ -3,11 +3,17 @@
 version 0.2
 
 ## Changelog
+New:
 - add game loading to client's local storage
 - add displaying current state of game
-- finish evolution stage
 - add turns changing
+- add changing to survival stage
+
+Changed:
+- finish early evolution stage
 - lots of code reworking
+
+Fixed:
 - add gitignore
 
 ## Bugs
