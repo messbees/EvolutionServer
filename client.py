@@ -226,7 +226,7 @@ def take(args):
         print("There is no such game.")
 
 def take_pass(args):
-    id = arks.id
+    id = args.id
     player = nick
     request = {}
     request["action"] = "PASS"
