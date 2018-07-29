@@ -22,7 +22,7 @@ class Game:
             self.first = self.turn
             for index in (0, len(players)-2):
                 players[index].next = players[index+1].name
-            players[len(players)-1].next = first
+            players[len(players)-1].next = first.name
             self.players = players
             self.dice = 0
             self.food = 0
