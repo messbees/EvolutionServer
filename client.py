@@ -261,7 +261,7 @@ def get_creature_text(creature):
     msg = '[Creature {}] Hunger:{}, Food:{}, Fat:{}. \n'.format(creature["id"], creature["hunger"], creature["food"], creature["fat"])
     msg +=  '[Creature {}] Abilities: '
     cards = 0
-    for card in creature["cards"]:
+    for card in creature["abilities"]:
         cards = cards + 1
     msg += '{} cards'.format(cards)
     for card in creature["cards"]:
