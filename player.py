@@ -57,7 +57,7 @@ class Player:
         json["next"] = self.next
         json["finished"] = self.finished
         json["creature_index"] = self.creature_index
-        json["creature"] = []
+        json["creatures"] = []
         for creature in self.creatures:
             json["creatures"].append(creature.json())
         json["cards"] = []
