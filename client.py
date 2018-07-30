@@ -24,7 +24,6 @@ def post(json):
     except requests.exceptions.ConnectionError:
         raise EvolutionClientException("Server didn't send response and ended connection.")
 
-
 def get(json):
     json["version"] = version
     try:
@@ -214,7 +213,6 @@ def game_show(args):
                         print(get_creature_text(creature))
     elif (game["stage"] == 'survival'):
         print("Dice: {}, food left: {}".format(game["dice"], game["food"]))
-
 
 def take(args):
     id = args.id
