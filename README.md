@@ -8,18 +8,17 @@ New:
 - add displaying current state of game
 - add turns changing
 - add changing to survival stage
+- finish early evolution stage (add new creatures, add abilities to creatures, finish turn)
 
 Changed:
-- finish early evolution stage
 - lots of code reworking
 
 Fixed:
 - add gitignore
+- lots of errors in client when server ends connection
 
 ## Bugs
-Client:
-- lots of errors if client gets wrong response
-
 Server:
 - lots of errors when server gets requests not from client  
 - errors when input request data contains non-latin symbols
+- turns not changing
