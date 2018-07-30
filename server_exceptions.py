@@ -1,0 +1,2 @@
+class EvolutionServerException(Exception):
+    pass
