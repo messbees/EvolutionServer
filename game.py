@@ -47,7 +47,7 @@ class Game:
             if (p.finished == False):
                 while (self.get_player(player.next).finished == True):
                     player = self.get_player(player.next)
-                game.turn = player.next
+                self.turn = player.next
                 return True
         return False
 
