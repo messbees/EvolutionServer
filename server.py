@@ -36,6 +36,7 @@ class Server:
             j = json.loads(f.read())
             game = Game('load', json=j)
             self.games.append(game)
+            LOGGER.info("Game {} is loaded to Server memory. Current loaded games count: {}.".format(game.id, len(self.games)))
             return game
         else:
             return False
