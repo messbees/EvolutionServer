@@ -64,5 +64,4 @@ class Player:
         for card in self.cards:
             json["cards"].append(card)
         json["discard"] = self.discard
-        print(json)
         return json
