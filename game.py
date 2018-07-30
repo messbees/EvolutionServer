@@ -45,8 +45,8 @@ class Game:
     def end_turn(self, player):
         for p in self.players:
             if (p.finished == False):
-                while (get_player(player.next).finished == True):
-                    player = get_player(player.next)
+                while (self.get_player(player.next).finished == True):
+                    player = self.get_player(player.next)
                 game.turn = player.next
                 return True
         return False
