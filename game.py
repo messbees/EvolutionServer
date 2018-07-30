@@ -109,7 +109,7 @@ class Game:
     def save(self):
         game = self.json()
         with open('games/{}.json'.format(self.id), 'w') as outfile:
-            json.dump(game, outfile)
+            json.dump(game, outfile, indent=4)
 
     def json(self):
         json = {}
