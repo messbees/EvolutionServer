@@ -30,8 +30,8 @@ def get(json):
     try:
         response = requests.get('http://159.100.247.47:8888', json=json)
         return response
-    except ConnectionError:
-        print("Server didn't send response and ended connection.")
+    except requests.exceptions.ConnectionError:
+        raise EvolutionClientException("Server didn't send response and ended connection.")
 
 def room_new(args):
     name = args.name
