@@ -203,7 +203,7 @@ def game_show(args):
             if (player["name"] == nick):
                 cards = ""
                 for card in player["cards"]:
-                    cards += '[{}]: {}, '.format(card, get_card_name(str(card)))
+                    cards += '[{}]: {}, '.format(card, get_card_name(card))
                 print(cards)
                 if (args.creatures):
                     print("Your creatures: ")
@@ -269,7 +269,7 @@ def get_creature_text(creature):
     return msg
 
 def get_card_name(card):
-    return get_ability(card).name
+    return get_ability(str(card)).name
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 	if args is None:
