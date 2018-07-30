@@ -259,7 +259,7 @@ def take_pass(args):
 def get_creature_text(creature):
     print("forming text!!!! input - {}".format(creature))
     msg = '[Creature {}] Hunger:{}, Food:{}, Fat:{}. \n'.format(creature["id"], creature["hunger"], creature["food"], creature["fat"])
-    msg +=  '[Creature {}] Abilities: '
+    msg +=  '[Creature {}] Abilities: '.format(creature["id"])
     cards = 0
     for card in creature["abilities"]:
         cards = cards + 1
