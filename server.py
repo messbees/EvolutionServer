@@ -133,10 +133,7 @@ class Server:
                         if (creature == 0):
                             if (p.add_creature(card)):
                                 LOGGER.info("Creature successfully spawned!")
-                                for pp in game.players:
-                                    if (pp.name == p.next):
-                                        if (pp.finished):
-                                            game.turn = pp.next
+                                game.end_turn(p)
                                 game.save()
                                 return "CREATED"
                         else:
@@ -144,10 +141,7 @@ class Server:
                                 if (creature == cr.id):
                                     if (p.add_ability(creature, card)):
                                         LOGGER.info("Ability successfully added!")
-                                        for pp in game.players:
-                                            if (pp.name == p.next):
-                                                if (pp.finished):
-                                                    game.turn = pp.next
+                                        game.end_turn(p)
                                         game.save()
                                         return "ADDED"
                                     else:
@@ -174,21 +168,14 @@ class Server:
                     LOGGER.warn("{} is already finished!".format(player))
                     return 'ALREADY'
                 p.finished = True
-                # Checking if next player also did pass:
-                for pp in game.players:
-                    if (pp.name == p.next):
-                        if (pp.finished):
-                            game.turn = pp.next
-                # Checking if there are any active players
-                for pp in game.players:
-                    if (pp.finished == False):
-                        game.save()
-                        LOGGER.info("Player passed.")
-                        return True
-                # Changing stage to survival
-                LOGGER.info("All players passed. Changing to survival stage!")
-                game.to_survival()
-                return True
+                if (game.end_turn(p)):
+                    game.save()
+                    LOGGER.info("Player passed.")
+                    return True
+                else:
+                    LOGGER.info("All players passed. Changing to survival stage!")
+                    game.to_survival()
+                    return True
         LOGGER.warn("Access denied!")
         return 'WRONG_USER'
 
