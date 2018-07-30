@@ -9,7 +9,7 @@ class Player:
             self.creatures = []
             self.cards = []
             self.creature_index = 0
-            self.finished = "false"
+            self.finished = False
             self.next = ''
             self.discard = 0
             for index in range(0, 5):
