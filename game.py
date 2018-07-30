@@ -42,6 +42,20 @@ class Game:
             for player in json["players"]:
                 self.players.append(Player('load', json=player))
 
+    def end_turn(self, player):
+        for p in self.players:
+            if (p.finished == false):
+                while (get_player(player.next).finished == True):
+                    player = get_player(player.next)
+                game.turn = player.next
+                return True
+        return False
+
+    def get_player(self, name):
+        for player in self.players:
+            if (player.name == name):
+                return player
+
     def to_survival(self):
         self.stage = "survival"
         self.turn = self.first
