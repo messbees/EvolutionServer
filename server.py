@@ -5,6 +5,7 @@ import argparse
 import logging
 from log import init_console_logging
 import os
+import sys
 import json
 from game import Game
 from room import Room
