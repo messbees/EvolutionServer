@@ -9,7 +9,7 @@ import argparse_helper
 import os
 import json
 import sys
-from exceptions import EvolutionClientException
+from client_exceptions import EvolutionClientException
 
 f = open('settings.json')
 settings = json.loads(f.read())

@@ -12,7 +12,7 @@ from deck import Deck
 from player import Player
 import creature, ability
 from ability import get_ability
-from exceptions import EvolutionServerException
+from server_exceptions import EvolutionServerException
 
 LOGGER = logging.getLogger(__name__)
 

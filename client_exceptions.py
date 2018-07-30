@@ -1,0 +1,2 @@
+class EvolutionClientException(Exception):
+    pass
