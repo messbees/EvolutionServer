@@ -163,7 +163,7 @@ def game_update(args):
         for player in game["players"]:
             players.append(player)
         with open('saved_games/{}.json'.format(id), 'w') as outfile:
-            json.dump(game, outfile)
+            json.dump(game, outfile, indent=4)
         print("Game '{}' (ID: {}). Current round: {}, stage: {}.".format(name, id, round, stage))
         if (turn == nick):
             print("It's YOUR turn!")
@@ -257,7 +257,7 @@ def take_pass(args):
         print("There is no such game")
 
 def get_creature_text(creature):
-    print("forming text!!!! input - {}".format(creature))
+    #print("forming text!!!! input - {}".format(creature))
     msg = '[Creature {}] Hunger:{}, Food:{}, Fat:{}. \n'.format(creature["id"], creature["hunger"], creature["food"], creature["fat"])
     msg +=  '[Creature {}] Abilities: '.format(creature["id"])
     cards = 0
