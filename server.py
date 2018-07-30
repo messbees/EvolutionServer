@@ -12,7 +12,7 @@ from deck import Deck
 from player import Player
 import creature, ability
 from ability import get_ability
-#from exceptions import EvolutionServerException
+from exceptions import EvolutionServerException
 
 LOGGER = logging.getLogger(__name__)
 
@@ -134,9 +134,13 @@ class Server:
                         if (creature == 0):
                             if (p.add_creature(card)):
                                 LOGGER.info("Creature successfully spawned!")
-                                game.end_turn(p)
-                                game.save()
-                                return "CREATED"
+                                LOGGER.debug("Ending turn...")
+                                if (game.end_turn(p)):
+                                    LOGGER.debug("Turn ended!")
+                                    game.save()
+                                    return "CREATED"
+                                else:
+                                    raise EvolutionServerException("Turn is not changed...")
                         else:
                             for cr in p.creatures:
                                 if (creature == cr.id):
@@ -370,7 +374,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(f.read())
 
-if __name__ == "__main__":
+def main(prog_name=os.path.basename(sys.argv[0]), args=None):
     parser = argparse.ArgumentParser(description='HTTP Server')
     parser.add_argument('port', type=int, help='Listening port for HTTP Server')
     parser.add_argument('ip', help='HTTP Server IP')
@@ -381,3 +385,21 @@ if __name__ == "__main__":
     LOGGER.info('Listening on {}:{}'.format(args.ip, args.port))
     HTTPserver = HTTPServer((args.ip, args.port), RequestHandler)
     HTTPserver.serve_forever()
+
+def main_wrapper():
+    # pylint: disable=bare-except
+    try:
+        main()
+    except (EvolutionServerException) as err:
+        LOGGER.error(err)
+        sys.exit(1)
+    except KeyboardInterrupt:
+        pass
+    except SystemExit as e:
+        raise e
+    except:
+        traceback.print_exc(file=sys.stderr)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main_wrapper()
