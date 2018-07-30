@@ -24,4 +24,4 @@ class Room:
             room["players"].append(player)
         room["admin"] = self.admin
         with open('rooms/{}.json'.format(self.name), 'w') as outfile:
-            json.dump(room, outfile)
+            json.dump(room, outfile, indent=4)

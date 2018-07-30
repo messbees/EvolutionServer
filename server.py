@@ -242,7 +242,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                                 room["players"].remove(player)
                                 #LOGGER.debug("Player has connected for the first time. Deleting player from room file...")
                                 with open('rooms/{}.json'.format(room["name"]), 'w') as outfile:
-                                    json.dump(room, outfile)
+                                    json.dump(room, outfile, indent=4)
                         if (room["players"] == []):
                             LOGGER.info("All players have connected to the game. Deleting room...")
                             os.remove('rooms/{}.json'.format(room["name"]))
@@ -317,7 +317,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_response(200)
                 self.end_headers()
 
-
         if (action == "TAKE"):
             id = data["game"]
             player = data["player"]
@@ -362,7 +361,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 return
             self.send_response(200)
             self.end_headers()
-
 
         if (action == "TEST"):
             f = open('rooms/null.json')
